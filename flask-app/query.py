@@ -4,6 +4,7 @@ import re
 from elasticsearch import Elasticsearch
 from globals import URLS, USERNAME, PASSWORD, INDEX
 import pprint
+from queryBuilder import QueryBuilder
 
 
 def authenticate_http():
@@ -19,25 +20,16 @@ def authenticate_http():
 
 
 if __name__ == '__main__':
-    # # uncomment if you're curious how long execution takes
-    # start = time.time()
-	es = authenticate_http()
-	res = es.search(index=INDEX, query={
-		"fuzzy": {
-			"title": "chicken"
-		}},
-    
-	# 	"fuzzy": {
-	# 		"ingredients": {
-	# 			"value": "chicken",
-	# 			"value": "onion",
-	# 			"value": "garlic",
 
-	# 		}
-	# 	}
-	
-	# },
-	sort= "_score")
+	userInputString = "eggs, vegetable oil, bananas cinnamon"
+
+
+
+	es = authenticate_http()
+	q = QueryBuilder(userInputString)
+	res = es.search(index=INDEX, query=q, sort="_score")
 	
 	for hit in res['hits']['hits']:
 		pprint.pprint(hit)
+	print("\n\nTHIS WAS YOUR QUERY:")
+	pprint.pprint(q)
