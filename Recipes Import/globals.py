@@ -579,7 +579,6 @@ URLS = [
 "https://www.allrecipes.com/recipe/10281/chewy-chocolate-cookies-ii/",
 "https://www.allrecipes.com/recipe/205547/staceys-hamburger-seasoning/",
 "https://www.allrecipes.com/recipe/285073/ultimate-creamy-chicken-enchiladas/",
-"https://www.allrecipes.com/recipe/90321/meatball-sandwich/",
 "https://www.allrecipes.com/recipe/20931/french-crepes/",
 "https://www.allrecipes.com/recipe/222352/jamies-sweet-and-easy-corn-on-the-cob/",
 "https://www.allrecipes.com/recipe/76296/meat-pie/",
