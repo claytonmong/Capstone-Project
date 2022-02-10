@@ -1,2 +1,2 @@
-node_modules/.cache/
-__pycache__/
+node_modules
+__pycache__
