@@ -101,7 +101,7 @@ function App() {
        {(typeof results === 'undefined') ? (
          <p></p>
        ) : results.map((member, i ) => (
-          <p key={i}>{JSON.stringify(JSON.parse(member))}</p>
+          <p key={i}>{member}</p>
         ))}
         
      </div>
