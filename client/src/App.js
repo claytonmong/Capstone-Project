@@ -34,7 +34,8 @@ import AddIngredient from "./enter-ingredients-components/AddIngredient";
 function App() {
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
-  var response;
+  const [results, setResults] = useState([]);
+  let r = [];
 
   // Add Ingredient
   const addIngredient = (ingredient) => {
@@ -52,10 +53,10 @@ function App() {
     let arr = "";
     for (let ingredient in ingredients) {
       arr += ingredients[ingredient].text + ", ";
-      console.log(ingredients[ingredient].text)
+      //console.log(ingredients[ingredient].text)
     }
     //navigate(`/search?q=${arr}`);
-    console.log(typeof arr)
+    //console.log(typeof arr)
     fetch('/search',{
       method: 'POST',
       body: JSON.stringify({
@@ -64,8 +65,16 @@ function App() {
     }).then(response => response.json()
       .then(data => ({ data, response })))
       .then(({ data, response }) =>  {
-        console.log(data)
+        console.log(data['results']['hits']['hits'])
+        for (let hit in data['results']['hits']['hits']) {
+          let h = JSON.stringify(data['results']['hits']['hits'][hit]['_source'])
+          
+          r.push(h)
+        }
+        response = data;
+        setResults(r);
       })
+     console.log(results)
   };
 
   return (
@@ -88,6 +97,14 @@ function App() {
           onClick={onSubmit}
         />
       )}
+      <div>
+       {(typeof results === 'undefined') ? (
+         <p></p>
+       ) : results.map((member, i ) => (
+          <p key={i}>{JSON.stringify(JSON.parse(member))}</p>
+        ))}
+        
+     </div>
     </div>
   );
 }
