@@ -34,6 +34,7 @@ import AddIngredient from "./enter-ingredients-components/AddIngredient";
 function App() {
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  var response;
 
   // Add Ingredient
   const addIngredient = (ingredient) => {
@@ -45,6 +46,26 @@ function App() {
   // Delete Ingredient
   const deleteIngredient = (id) => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
+  };
+  const onSubmit = () => {
+    
+    let arr = "";
+    for (let ingredient in ingredients) {
+      arr += ingredients[ingredient].text + ", ";
+      console.log(ingredients[ingredient].text)
+    }
+    //navigate(`/search?q=${arr}`);
+    console.log(typeof arr)
+    fetch('/search',{
+      method: 'POST',
+      body: JSON.stringify({
+        content: arr
+      })
+    }).then(response => response.json()
+      .then(data => ({ data, response })))
+      .then(({ data, response }) =>  {
+        console.log(data)
+      })
   };
 
   return (
@@ -64,6 +85,7 @@ function App() {
           type="submit"
           value="Submit Ingredients"
           className="btn btn-block"
+          onClick={onSubmit}
         />
       )}
     </div>

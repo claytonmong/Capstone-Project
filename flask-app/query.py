@@ -1,6 +1,3 @@
-import requests
-import json
-import re
 from elasticsearch import Elasticsearch
 from globals import URLS, USERNAME, PASSWORD, INDEX
 import pprint
@@ -10,6 +7,7 @@ from queryBuilder import QueryBuilder
 def authenticate_http():
     """
     Authenticate cluster access via http
+	"New line here"
     :return: authenticated elasticsearch instance
     """
     es = Elasticsearch(
@@ -19,11 +17,7 @@ def authenticate_http():
     return es
 
 
-if __name__ == '__main__':
-
-	userInputString = "eggs, vegetable oil, bananas cinnamon"
-
-
+def Query(userInputString):
 
 	es = authenticate_http()
 	q = QueryBuilder(userInputString)
@@ -33,3 +27,4 @@ if __name__ == '__main__':
 		pprint.pprint(hit)
 	print("\n\nTHIS WAS YOUR QUERY:")
 	pprint.pprint(q)
+	return res
