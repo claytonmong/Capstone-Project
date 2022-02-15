@@ -71,6 +71,9 @@ function App() {
           
           r.push(h)
         }
+        if (r.length === 0) {
+          r.push("No results found")
+        }
         response = data;
         setResults(r);
       })
