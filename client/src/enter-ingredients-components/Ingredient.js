@@ -2,7 +2,7 @@ import { FaTimes } from "react-icons/fa";
 
 const Ingredient = ({ ingredient, onDelete }) => {
   return (
-    <div className="ingredient">
+    <div id  = "name" className="ingredient">
       <h3>
         <FaTimes
           style={{ color: "red", cursor: "pointer" }}
@@ -11,7 +11,10 @@ const Ingredient = ({ ingredient, onDelete }) => {
         {ingredient.text}{" "}
       </h3>
     </div>
-  );
-};
+  )
 
+  
+}
+ 
+console.log(document.getElementById("name"));
 export default Ingredient;

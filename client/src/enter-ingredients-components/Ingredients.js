@@ -11,7 +11,9 @@ const Ingredients = ({ ingredients, onDelete }) => {
         />
       ))}
     </>
+    
   );
+  
 };
-
+console.log(Ingredient.ingredient);
 export default Ingredients;

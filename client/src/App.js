@@ -42,6 +42,8 @@ function App() {
     setIngredients([...ingredients, newIngredient]);
   };
 
+  //console.log(addIngredient.ingredient)
+
   // Delete Ingredient
   const deleteIngredient = (id) => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
@@ -53,7 +55,9 @@ function App() {
         onAdd={() => setShowAddIngredient(!showAddIngredient)}
         showAdd={showAddIngredient}
       />
-      {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
+      
+      {showAddIngredient && <AddIngredient onAdd={addIngredient}  /> }
+      
       {ingredients.length > 0 ? (
         <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
       ) : (
@@ -65,7 +69,9 @@ function App() {
           value="Submit Ingredients"
           className="btn btn-block"
         />
+       
       )}
+      
     </div>
   );
 }
