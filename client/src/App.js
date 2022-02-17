@@ -37,6 +37,14 @@ function App() {
   const [results, setResults] = useState([]);
   let r = [];
 
+  // Clear states
+  const onClear = () => {
+    setShowAddIngredient(false);
+    setIngredients([]);
+    setResults([]);
+    let r = [];
+  };
+
   // Add Ingredient
   const addIngredient = (ingredient) => {
     const id = Math.floor(Math.random() * 10000) + 1;
@@ -48,8 +56,9 @@ function App() {
   const deleteIngredient = (id) => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
   };
+
+  // Submit Ingredients
   const onSubmit = () => {
-    
     let arr = "";
     for (let ingredient in ingredients) {
       arr += ingredients[ingredient].text + ", ";
@@ -57,27 +66,29 @@ function App() {
     }
     //navigate(`/search?q=${arr}`);
     //console.log(typeof arr)
-    fetch('/search',{
-      method: 'POST',
+    fetch("/search", {
+      method: "POST",
       body: JSON.stringify({
-        content: arr
-      })
-    }).then(response => response.json()
-      .then(data => ({ data, response })))
-      .then(({ data, response }) =>  {
-        console.log(data['results']['hits']['hits'])
-        for (let hit in data['results']['hits']['hits']) {
-          let h = JSON.stringify(data['results']['hits']['hits'][hit]['_source'])
-          
-          r.push(h)
+        content: arr,
+      }),
+    })
+      .then((response) => response.json().then((data) => ({ data, response })))
+      .then(({ data, response }) => {
+        console.log(data["results"]["hits"]["hits"]);
+        for (let hit in data["results"]["hits"]["hits"]) {
+          let h = JSON.stringify(
+            data["results"]["hits"]["hits"][hit]["_source"]
+          );
+
+          r.push(h);
         }
         if (r.length === 0) {
-          r.push("No results found")
+          r.push("No results found");
         }
         response = data;
         setResults(r);
-      })
-     console.log(results)
+      });
+    console.log(results);
   };
 
   return (
@@ -100,14 +111,21 @@ function App() {
           onClick={onSubmit}
         />
       )}
+      {ingredients.length > 0 && !showAddIngredient && (
+        <input
+          type="submit"
+          value="Clear"
+          className="btn btn-block"
+          onClick={onClear}
+        />
+      )}
       <div>
-       {(typeof results === 'undefined') ? (
-         <p></p>
-       ) : results.map((member, i ) => (
-          <p key={i}>{member}</p>
-        ))}
-        
-     </div>
+        {typeof results === "undefined" ? (
+          <p></p>
+        ) : (
+          results.map((member, i) => <p key={i}>{member}</p>)
+        )}
+      </div>
     </div>
   );
 }
