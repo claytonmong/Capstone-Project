@@ -37,10 +37,14 @@ function App() {
   const [results, setResults] = useState([]);
   let r = [];
 
-  // Clear states
-  const onClear = () => {
+  // Clear ingredients
+  const onClearIngredients = () => {
     setShowAddIngredient(false);
     setIngredients([]);
+  };
+
+  // Clear recipes
+  const onClearRecipes = () => {
     setResults([]);
     let r = [];
   };
@@ -114,18 +118,29 @@ function App() {
       {ingredients.length > 0 && !showAddIngredient && (
         <input
           type="submit"
-          value="Clear"
+          value="Clear Ingredients"
           className="btn btn-block"
-          onClick={onClear}
+          onClick={onClearIngredients}
         />
       )}
-      <div>
-        {typeof results === "undefined" ? (
-          <p></p>
-        ) : (
-          results.map((member, i) => <p key={i}>{member}</p>)
-        )}
-      </div>
+      {results.length > 0 && (
+        <div>
+          <h1>{"Recipes"}</h1>
+          {typeof results === "undefined" ? (
+            <p></p>
+          ) : (
+            results.map((member, i) => <p key={i}>{member}</p>)
+          )}
+        </div>
+      )}
+      {results.length > 0 && (
+        <input
+          type="submit"
+          value="Clear Recipes"
+          className="btn btn-block"
+          onClick={onClearRecipes}
+        />
+      )}
     </div>
   );
 }
