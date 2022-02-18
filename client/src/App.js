@@ -117,7 +117,7 @@ function App() {
       )}
       {ingredients.length > 0 && !showAddIngredient && (
         <input
-          type="submit"
+          type="reset"
           value="Clear Ingredients"
           className="btn btn-block"
           onClick={onClearIngredients}
@@ -135,7 +135,7 @@ function App() {
       )}
       {results.length > 0 && (
         <input
-          type="submit"
+          type="reset"
           value="Clear Recipes"
           className="btn btn-block"
           onClick={onClearRecipes}
