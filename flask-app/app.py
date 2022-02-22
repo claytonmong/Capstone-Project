@@ -1,4 +1,15 @@
+#from urllib import request
 from flask import Flask
+from flask import request
+import json
+import pprint
+from queryBuilder import QueryBuilder
+from query import Query
+
+	
+
+
+
 
 app = Flask(__name__)
 
@@ -14,6 +25,13 @@ def recipes():
 @app.route('/home')
 def home():
 	return {'Home Endpoint': ['Welcome to the home endpoint!', 'test', 'test2']}
+
+@app.route('/search', methods=['POST'], strict_slashes=False)
+def search():
+	request_data = json.loads(request.data)
+	userInputString = request_data['content']
+	res = Query(userInputString[:-1])
+	return {"results" : res}
 
 if __name__ == '__main__':
 	app.run(debug=True)
