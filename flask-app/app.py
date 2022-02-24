@@ -2,13 +2,8 @@
 from flask import Flask
 from flask import request
 import json
-import pprint
 from queryBuilder import QueryBuilder
 from query import Query
-
-	
-
-
 
 
 app = Flask(__name__)
@@ -31,7 +26,8 @@ def search():
 	request_data = json.loads(request.data)
 	userInputString = request_data['content']
 	res = Query(userInputString[:-1])
-	return {"results" : res}
+
+	return {"results" : dict(res)}
 
 if __name__ == '__main__':
 	app.run(debug=True)
