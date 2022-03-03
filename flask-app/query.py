@@ -11,6 +11,7 @@ def authenticate_http():
     :return: authenticated elasticsearch instance
     """
     es = Elasticsearch(
+		"http://localhost:9200",
         http_auth=(USERNAME, PASSWORD)
     )
 

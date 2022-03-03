@@ -31,7 +31,7 @@ def search():
 	request_data = json.loads(request.data)
 	userInputString = request_data['content']
 	res = Query(userInputString[:-1])
-	return {"results" : res}
+	return {"results" : dict(res)}
 
 if __name__ == '__main__':
 	app.run(debug=True)

@@ -6,8 +6,8 @@ const RecipeInfo = ({ recipe }) => {
       <h1>{recipe.title}</h1>
       <h2>Required Ingredients</h2>
       <ul className="unordered-list">
-        {recipe.ingredients.map((ingredient) => (
-          <li>{ingredient}</li>
+        {recipe.ingredients.map((ingredient, i) => (
+          <li key={i}>{ingredient}</li>
         ))}
       </ul>
       <h2>Instructions</h2>

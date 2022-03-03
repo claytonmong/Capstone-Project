@@ -97,7 +97,7 @@ function App() {
       });
     console.log(results);
     console.log(typeof SampleRecipeData[0])
-    console.log(typeof JSON.parse(results[0]))
+    // console.log(typeof JSON.parse(results[0]))
   };
 
   return (
@@ -136,7 +136,7 @@ function App() {
           {typeof results === "undefined" ? (
             <p></p>
           ) : (
-            results.map((member, i) => <p key={i}><RecipeInfo recipe={JSON.parse(member)} /></p>)
+            results.map((member, i) => <li key={i}><RecipeInfo recipe={JSON.parse(member)} /></li>)
           )}
         </div>
       )}
