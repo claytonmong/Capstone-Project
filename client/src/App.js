@@ -30,6 +30,8 @@ import { useState } from "react";
 import Header from "./enter-ingredients-components/Header";
 import Ingredients from "./enter-ingredients-components/Ingredients";
 import AddIngredient from "./enter-ingredients-components/AddIngredient";
+import SampleRecipeData from "./sample-data/SampleRecipeData";
+import RecipeInfo from "./recipe-components/RecipeInfo";
 
 function App() {
   const [showAddIngredient, setShowAddIngredient] = useState(false);
@@ -78,7 +80,7 @@ function App() {
     })
       .then((response) => response.json().then((data) => ({ data, response })))
       .then(({ data, response }) => {
-        console.log(data["results"]["hits"]["hits"]);
+        //console.log(data["results"]["hits"]["hits"]);
         for (let hit in data["results"]["hits"]["hits"]) {
           let h = JSON.stringify(
             data["results"]["hits"]["hits"][hit]["_source"]
@@ -91,13 +93,18 @@ function App() {
         }
         response = data;
         setResults(r);
+        console.log(results);
       });
     console.log(results);
+    console.log(typeof SampleRecipeData[0])
+    // console.log(typeof JSON.parse(results[0]))
   };
 
   return (
     <div className="container">
-      <Header
+      
+        {/* <RecipeInfo recipe={SampleRecipeData[0]} /> */}
+         <Header
         onAdd={() => setShowAddIngredient(!showAddIngredient)}
         showAdd={showAddIngredient}
       />
@@ -129,7 +136,7 @@ function App() {
           {typeof results === "undefined" ? (
             <p></p>
           ) : (
-            results.map((member, i) => <p key={i}>{member}</p>)
+            results.map((member, i) => <li key={i}><RecipeInfo recipe={JSON.parse(member)} /></li>)
           )}
         </div>
       )}
@@ -140,7 +147,8 @@ function App() {
           className="btn btn-block"
           onClick={onClearRecipes}
         />
-      )}
+      )} 
+      
     </div>
   );
 }

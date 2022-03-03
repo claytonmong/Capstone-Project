@@ -8,12 +8,12 @@ def authenticate_http():
 	"""
 	Authenticate cluster access via http
 	"New line here"
-	:return: authenticated elasticsearch instance
-	"""
-	es = Elasticsearch(
-		"http://localhost:9200",
-		http_auth=(USERNAME, PASSWORD)
-	)
+    :return: authenticated elasticsearch instance
+    """
+    es = Elasticsearch(
+      "http://localhost:9200",
+      http_auth=(USERNAME, PASSWORD)
+    )
 
 	return es
 
