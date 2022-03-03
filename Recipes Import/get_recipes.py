@@ -191,7 +191,10 @@ def get_image_src(soup):
     src = ""
 
     try:
-        src = soup.find_all("img", _class="component lazy-image lazy-image-udf aspect_3x2 cache-only align-default rendered image-loaded")
+        # src = soup.find_all("div", _class="component lazy-image")
+        src = soup.find('div', attrs={'class': lambda e: e.startswith('component lazy-image') if e else False})
+        src = src['data-src']
+        print(f'image source = "{src}"')
     except:
         print(f"Error getting source of image")
 
@@ -208,7 +211,10 @@ def post_to_index(es):
             # parse the html elements
             soup = BeautifulSoup(resp.content, "html.parser")
             data = format_document(soup)
-            create_document(es, id_num, data)
+            # create_document(es, id_num, data)
+
+            # print(data)
+
             id_num += 1
         except Exception as err:
             print(f"Error occurred. \nSource={url}\n{err}\n\n")
