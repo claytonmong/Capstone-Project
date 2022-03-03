@@ -2,13 +2,8 @@
 from flask import Flask
 from flask import request
 import json
-import pprint
 from queryBuilder import QueryBuilder
 from query import Query
-
-	
-
-
 
 
 app = Flask(__name__)
