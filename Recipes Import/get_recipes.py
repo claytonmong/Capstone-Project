@@ -188,17 +188,18 @@ def separate_directions(directions):
     return directions_list
 
 def get_image_src(soup):
-    src = ""
+    img_src = ""
 
     try:
-        # src = soup.find_all("div", _class="component lazy-image")
-        src = soup.find('div', attrs={'class': lambda e: e.startswith('component lazy-image') if e else False})
-        src = src['data-src']
-        print(f'image source = "{src}"')
-    except:
-        print(f"Error getting source of image")
+        img_aside = soup.find('aside', attrs={'class': lambda e: e.startswith('recipe-tout-image') if e else False})
+        img_src = img_aside("img")[0]["src"]
+    except Exception as err:
+        print(f"\tError finding image for this recipe. \n\tError: {err}")
 
-    return src
+    if img_src == "":
+        img_src = "Recipes Import\\No-Image-Available.jpg"
+
+    return img_src
 
 
 def post_to_index(es):
@@ -211,13 +212,11 @@ def post_to_index(es):
             # parse the html elements
             soup = BeautifulSoup(resp.content, "html.parser")
             data = format_document(soup)
-            # create_document(es, id_num, data)
-
-            # print(data)
-
+            create_document(es, id_num, data)
             id_num += 1
         except Exception as err:
             print(f"Error occurred. \nSource={url}\n{err}\n\n")
+
 
 
 def authenticate_http():
