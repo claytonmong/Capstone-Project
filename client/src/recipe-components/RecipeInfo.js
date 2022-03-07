@@ -29,6 +29,11 @@ const RecipeInfo = ({ recipe }) => {
         <li>Prepare for {recipe.meta.prep}</li>
         <li>Number of servings: {recipe.meta.servings}</li>
       </ul>
+      {recipe.image !== "Recipes Import\\No-Image-Available.jpg" && (
+        <p>
+          <img src={recipe.image} alt="" width="375px" height="375px" />
+        </p>
+      )}
     </div>
   );
 };
