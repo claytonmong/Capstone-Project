@@ -96,15 +96,14 @@ function App() {
         console.log(results);
       });
     console.log(results);
-    console.log(typeof SampleRecipeData[0])
+    console.log(typeof SampleRecipeData[0]);
     // console.log(typeof JSON.parse(results[0]))
   };
 
   return (
     <div className="container">
-      
-        {/* <RecipeInfo recipe={SampleRecipeData[0]} /> */}
-         <Header
+      {/* <RecipeInfo recipe={SampleRecipeData[0]} /> */}
+      <Header
         onAdd={() => setShowAddIngredient(!showAddIngredient)}
         showAdd={showAddIngredient}
       />
@@ -136,7 +135,11 @@ function App() {
           {typeof results === "undefined" ? (
             <p></p>
           ) : (
-            results.map((member, i) => <li key={i}><RecipeInfo recipe={JSON.parse(member)} /></li>)
+            results.map((member, i) => (
+              <li key={i}>
+                <RecipeInfo recipe={JSON.parse(member)} />
+              </li>
+            ))
           )}
         </div>
       )}
@@ -147,8 +150,7 @@ function App() {
           className="btn btn-block"
           onClick={onClearRecipes}
         />
-      )} 
-      
+      )}
     </div>
   );
 }
