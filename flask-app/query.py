@@ -5,17 +5,16 @@ from queryBuilder import QueryBuilder
 
 
 def authenticate_http():
-	"""
-	Authenticate cluster access via http
+    """
+    Authenticate cluster access via http
 	"New line here"
     :return: authenticated elasticsearch instance
     """
     es = Elasticsearch(
-      "http://localhost:9200",
-      http_auth=(USERNAME, PASSWORD)
+        http_auth=(USERNAME, PASSWORD)
     )
 
-	return es
+    return es
 
 
 def Query(userInputString):
