@@ -16,7 +16,8 @@ def format_document(soup):
         "notes": get_notes(soup),
         "meta": get_meta(soup),
         "nutrition": get_nutrition(soup),
-        "calories": get_calories(soup)
+        "calories": get_calories(soup),
+        "image": get_image_src(soup)
     }
 
     json_data = json.dumps(data)
@@ -186,22 +187,36 @@ def separate_directions(directions):
 
     return directions_list
 
+def get_image_src(soup):
+    img_src = ""
+
+    try:
+        img_aside = soup.find('aside', attrs={'class': lambda e: e.startswith('recipe-tout-image') if e else False})
+        img_src = img_aside("img")[0]["src"]
+    except Exception as err:
+        print(f"\tError finding image for this recipe. \n\tError: {err}")
+
+    if img_src == "":
+        img_src = "Recipes Import\\No-Image-Available.jpg"
+
+    return img_src
+
 
 def post_to_index(es):
     id_num = 10001
 
     for url in URLS:
-        # request url
-        resp = requests.get(url)
+        try:
+            # request url
+            resp = requests.get(url)
+            # parse the html elements
+            soup = BeautifulSoup(resp.content, "html.parser")
+            data = format_document(soup)
+            create_document(es, id_num, data)
+            id_num += 1
+        except Exception as err:
+            print(f"Error occurred. \nSource={url}\n{err}\n\n")
 
-        # parse the html elements
-        soup = BeautifulSoup(resp.content, "html.parser")
-
-        data = format_document(soup)
-
-        create_document(es, id_num, data)
-
-        id_num += 1
 
 
 def authenticate_http():
@@ -210,6 +225,7 @@ def authenticate_http():
     :return: authenticated elasticsearch instance
     """
     es = Elasticsearch(
+        "http://localhost:9200",
         http_auth=(USERNAME, PASSWORD)
     )
 
