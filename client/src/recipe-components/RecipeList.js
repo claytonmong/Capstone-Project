@@ -17,6 +17,14 @@ const RecipeList = ({ recipe }) => {
             <img src={recipe.image} alt="" width="128px" height="128px" />
           </p>
         )}
+        { (
+        <input
+          type="reset"
+          value="View Full Recipe"
+          className="btn btn-block"
+          onClick={null}
+        />
+        )}
       </table> 
     </div>
   );
