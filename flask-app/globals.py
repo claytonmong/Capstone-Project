@@ -2,7 +2,7 @@ INDEX = "capstone"
 
 USERNAME = "elastic"
 
-PASSWORD = "changeme"
+PASSWORD = "applebanana"
 
 URLS = [
 "https://www.allrecipes.com/recipe/8331294/chicago-deep-dish-pizza-muffins/",

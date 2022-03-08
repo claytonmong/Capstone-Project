@@ -32,6 +32,7 @@ import Ingredients from "./enter-ingredients-components/Ingredients";
 import AddIngredient from "./enter-ingredients-components/AddIngredient";
 import SampleRecipeData from "./sample-data/SampleRecipeData";
 import RecipeInfo from "./recipe-components/RecipeInfo";
+import RecipeList from "./recipe-components/RecipeList";
 
 function App() {
   const [showAddIngredient, setShowAddIngredient] = useState(false);
@@ -137,7 +138,7 @@ function App() {
           ) : (
             results.map((member, i) => (
               <li key={i}>
-                <RecipeInfo recipe={JSON.parse(member)} />
+                <RecipeList recipe={JSON.parse(member)} />
               </li>
             ))
           )}
