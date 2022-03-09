@@ -1,30 +1,4 @@
-// import React, {useState, useEffect} from 'react'
-
-// function App() {
-//   const [data, setData] = useState([{}])
-
-//   useEffect(() => {
-//     fetch('/recipes').then(
-//       response => response.json()
-//     ).then(
-//       data => {
-//         setData(data)
-//         console.log(data)
-//       }
-//     )
-//   }, [])
-//   return (
-//     <div>
-//       {(typeof data.recipes === 'undefined') ? (
-//         <p>Loading...</p>
-//       ) : (
-//         data.recipes.map((member, i ) => (
-//           <p key={i}>{member}</p>
-//         ))
-//       )}
-//     </div>
-//   )
-// }
+import React from "react";
 import {
   Router,
   Switch,
@@ -40,9 +14,14 @@ import Ingredients from "./enter-ingredients-components/Ingredients";
 import AddIngredient from "./enter-ingredients-components/AddIngredient";
 import SampleRecipeData from "./sample-data/SampleRecipeData";
 import RecipeInfo from "./recipe-components/RecipeInfo";
-import Home from "./Home";
 
-function App() {
+
+
+
+
+const Home = (props) => {
+
+
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [results, setResults] = useState([]);
@@ -108,15 +87,62 @@ function App() {
     console.log(typeof SampleRecipeData[0]);
     // console.log(typeof JSON.parse(results[0]))
   };
-
   return (
-    <div >
-      <Routes>
-        <Route path="/" element={<Home/>} >LINK TO RECIPE</Route>
-        <Route exact path="/recipe" element={<Recipe/>} >LINK TO RECIPE</Route> 
-      </Routes>
+    <div className="container">
+      
+      <Header
+        onAdd={() => setShowAddIngredient(!showAddIngredient)}
+        showAdd={showAddIngredient}
+      />
+      {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
+      {ingredients.length > 0 ? (
+        <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
+      ) : (
+        "No Ingredients Entered"
+      )}
+      {ingredients.length > 0 && !showAddIngredient && (
+        <input
+          type="submit"
+          value="Submit Ingredients"
+          className="btn btn-block"
+          onClick={onSubmit}
+        />
+      )}
+      {ingredients.length > 0 && !showAddIngredient && (
+        <input
+          type="reset"
+          value="Clear Ingredients"
+          className="btn btn-block"
+          onClick={onClearIngredients}
+        />
+      )}
+      {results.length > 0 && (
+        <div>
+          <h1>{"Recipes"}</h1>
+          {typeof results === "undefined" ? (
+            <p></p>
+          ) : (
+            results.map((member, i) => (
+              <li key={i}>
+                <Link to='/recipe'>
+                <RecipeInfo recipe={JSON.parse(member)} />
+                Click Me</Link>
+                
+              </li>
+            ))
+          )}
+        </div>
+      )}
+      {results.length > 0 && (
+        <input
+          type="reset"
+          value="Clear Recipes"
+          className="btn btn-block"
+          onClick={onClearRecipes}
+        />
+      )}
     </div>
   );
-}
-
-export default App;
+};
+  
+export default Home;
