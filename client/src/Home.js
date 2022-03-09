@@ -5,13 +5,7 @@ import AddIngredient from "./enter-ingredients-components/AddIngredient";
 import SampleRecipeData from "./sample-data/SampleRecipeData";
 import RecipeList from "./recipe-components/RecipeList";
 
-
-
-
-
 const Home = (props) => {
-
-
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [results, setResults] = useState([]);
@@ -78,66 +72,58 @@ const Home = (props) => {
     // console.log(typeof JSON.parse(results[0]))
   };
   return (
-	<div>
-	<div className="container">
-	  <Header
-		onAdd={() => setShowAddIngredient(!showAddIngredient)}
-		showAdd={showAddIngredient}
-	  />
-	  {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
-	  {ingredients.length > 0 ? (
-		<Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
-	  ) : (
-		"No Ingredients Entered"
-	  )}
-	  {ingredients.length > 0 && !showAddIngredient && (
-		<input
-		  type="submit"
-		  value="Submit Ingredients"
-		  className="btn btn-block"
-		  onClick={onSubmit}
-		/>
-	  )}
-	  {ingredients.length > 0 && !showAddIngredient && (
-		<input
-		  type="reset"
-		  value="Clear Ingredients"
-		  className="btn btn-block"
-		  onClick={onClearIngredients}
-		/>
-	  )}
-	</div>
-	{results.length > 0 && (
-	  <div>
-		<div className="center">
-		  <h1>{"Recipes"}</h1>
-		</div>
-		{typeof results === "undefined" ? (
-		  <p></p>
-		) : (
-
-		  results.map((member, i) => (
-			  
-
-			<par key={i}>
-			  <RecipeList recipe={JSON.parse(member)} />
-			</par>
-
-		  ))
-		)}
-
-	  </div>
-	)}
-	{results.length > 0 && (
-	  <input
-		type="reset"
-		value="Clear Recipes"
-		className="btn btn-block"
-		onClick={onClearRecipes}
-	  />
-	)}
-  </div>
+    <div>
+      <div className="container">
+        <Header
+          onAdd={() => setShowAddIngredient(!showAddIngredient)}
+          showAdd={showAddIngredient}
+        />
+        {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
+        {ingredients.length > 0 ? (
+          <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
+        ) : (
+          "No Ingredients Entered"
+        )}
+        {ingredients.length > 0 && !showAddIngredient && (
+          <input
+            type="submit"
+            value="Submit Ingredients"
+            className="btn btn-block"
+            onClick={onSubmit}
+          />
+        )}
+        {ingredients.length > 0 && !showAddIngredient && (
+          <input
+            type="reset"
+            value="Clear Ingredients"
+            className="btn btn-block"
+            onClick={onClearIngredients}
+          />
+        )}
+      </div>
+      {results.length > 0 && (
+        <div>
+          {typeof results === "undefined" ? (
+            <p></p>
+          ) : (
+            results.map((member, i) => (
+              <div key={i}>
+                <RecipeList recipe={JSON.parse(member)} />
+              </div>
+            ))
+          )}
+        </div>
+      )}
+      {results.length > 0 && (
+        <input
+          type="reset"
+          value="Clear Recipes"
+          className="btn btn-block"
+          onClick={onClearRecipes}
+        />
+      )}
+    </div>
   );
 };
-  
+
 export default Home;
