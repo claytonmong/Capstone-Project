@@ -102,44 +102,49 @@ function App() {
   };
 
   return (
-    <div className="container">
-      {/* <RecipeInfo recipe={SampleRecipeData[0]} /> */}
-      <Header
-        onAdd={() => setShowAddIngredient(!showAddIngredient)}
-        showAdd={showAddIngredient}
-      />
-      {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
-      {ingredients.length > 0 ? (
-        <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
-      ) : (
-        "No Ingredients Entered"
-      )}
-      {ingredients.length > 0 && !showAddIngredient && (
-        <input
-          type="submit"
-          value="Submit Ingredients"
-          className="btn btn-block"
-          onClick={onSubmit}
+    <div className="full">
+      <div className="container">
+        <Header
+          onAdd={() => setShowAddIngredient(!showAddIngredient)}
+          showAdd={showAddIngredient}
         />
-      )}
-      {ingredients.length > 0 && !showAddIngredient && (
-        <input
-          type="reset"
-          value="Clear Ingredients"
-          className="btn btn-block"
-          onClick={onClearIngredients}
-        />
-      )}
+        {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
+        {ingredients.length > 0 ? (
+          <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
+        ) : (
+          "No Ingredients Entered"
+        )}
+        {ingredients.length > 0 && !showAddIngredient && (
+          <input
+            type="submit"
+            value="Submit Ingredients"
+            className="btn btn-block"
+            onClick={onSubmit}
+          />
+        )}
+        {ingredients.length > 0 && !showAddIngredient && (
+          <input
+            type="reset"
+            value="Clear Ingredients"
+            className="btn btn-block"
+            onClick={onClearIngredients}
+          />
+        )}
+      </div>
       {results.length > 0 && (
         <div>
-          <h1>{"Recipes"}</h1>
+          <div className="center">
+            <h1>{"Recipes"}</h1>
+          </div>
           {typeof results === "undefined" ? (
             <p></p>
           ) : (
             results.map((member, i) => (
-              <li key={i}>
-                <RecipeList recipe={JSON.parse(member)} />
-              </li>
+
+              <par key={i}>
+                <RecipeInfo recipe={JSON.parse(member)} />
+              </par>
+
             ))
           )}
         </div>

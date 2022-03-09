@@ -3,7 +3,9 @@ import { FaTimes } from "react-icons/fa";
 const RecipeInfo = ({ recipe }) => {
   return (
     <div className="body">
-      <h1>{recipe.title}</h1>
+      <div className="center">
+        <h1>{recipe.title}</h1>
+      </div>
       <h2>Required Ingredients</h2>
       <ul className="unordered-list">
         {recipe.ingredients.map((ingredient, i) => (
@@ -30,9 +32,9 @@ const RecipeInfo = ({ recipe }) => {
         <li>Number of servings: {recipe.meta.servings}</li>
       </ul>
       {recipe.image !== "Recipes Import\\No-Image-Available.jpg" && (
-        <p>
+        <div className="center">
           <img src={recipe.image} alt="" width="375px" height="375px" />
-        </p>
+        </div>
       )}
     </div>
   );
