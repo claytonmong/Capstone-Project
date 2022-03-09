@@ -7,11 +7,12 @@ import {useLocation} from "react-router-dom";
 
 const Recipe = () => {
 	const location = useLocation();
+	const recipe = location.state.item;
 	
 	console.log(location.state.item)
 	  return (
 	<div>
-	  <RecipeInfo recipe={location.state.item}/>
+	  <RecipeInfo recipe={recipe}/>
 	</div>
   );
 };

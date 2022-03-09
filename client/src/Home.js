@@ -1,13 +1,3 @@
-import React from "react";
-import {
-  Router,
-  Switch,
-  Route,
-  Routes,
-  Redirect,
-  Link,
-} from "react-router-dom";
-import Recipe from "./Recipe";
 import { useState } from "react";
 import Header from "./enter-ingredients-components/Header";
 import Ingredients from "./enter-ingredients-components/Ingredients";
