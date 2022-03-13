@@ -119,9 +119,9 @@ const Home = (props) => {
 		  results.map((member, i) => (
 			  
 
-			<par key={i}>
+			<div key={i}>
 			  <RecipeList recipe={JSON.parse(member)} />
-			</par>
+			</div>
 
 		  ))
 		)}
