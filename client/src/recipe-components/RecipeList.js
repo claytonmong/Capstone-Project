@@ -20,9 +20,11 @@ const RecipeList = ({ recipe }) => {
           </tr>
           <tr>
             <td>{recipe.title}&emsp;</td>
-            <td>{recipe.category}&emsp;</td>
-            <td>{recipe.meta.total}&emsp;</td>
-            <td>{recipe.calories}&emsp;</td>
+            <td>{recipe.category !== "" ? recipe.category : "N/A"}&emsp;</td>
+            <td>
+              {recipe.meta.total !== "" ? recipe.meta.total : "N/A"}&emsp;
+            </td>
+            <td>{recipe.calories !== "" ? recipe.calories : "N/A"}&emsp;</td>
           </tr>
         </tbody>
       </table>

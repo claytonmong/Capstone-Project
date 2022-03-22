@@ -16,19 +16,47 @@ const RecipeInfo = ({ recipe }) => {
       <p>{recipe.instructions.toString().replace("Advertisement,", "")}</p>
       <h2>Nutrition</h2>
       <ul>
-        <li>Calories: {recipe.calories}</li>
-        <li>Carbs: {recipe.nutrition.carbs}</li>
-        <li>Fat: {recipe.nutrition.fat}</li>
-        <li>Fiber: {recipe.nutrition.fiber}</li>
-        <li>Protein: {recipe.nutrition.protein}</li>
-        <li>Sodium: {recipe.nutrition.sodium}</li>
-        <li>Sugar: {recipe.nutrition.sugar}</li>
+        <li>Calories: {recipe.calories !== "" ? recipe.calories : "N/A"}</li>
+        <li>
+          Carbs:{" "}
+          {recipe.nutrition.carbs !== "" ? recipe.nutrition.carbs : "N/A"}
+        </li>
+        <li>
+          Fat: {recipe.nutrition.fat !== "" ? recipe.nutrition.fat : "N/A"}
+        </li>
+        <li>
+          Fiber:{" "}
+          {recipe.nutrition.fiber !== "" ? recipe.nutrition.fiber : "N/A"}
+        </li>
+        <li>
+          Protein:{" "}
+          {recipe.nutrition.protein !== "" ? recipe.nutrition.protein : "N/A"}
+        </li>
+        <li>
+          Sodium:{" "}
+          {recipe.nutrition.sodium !== "" ? recipe.nutrition.sodium : "N/A"}
+        </li>
+        <li>
+          Sugar:{" "}
+          {recipe.nutrition.sugar !== "" ? recipe.nutrition.sugar : "N/A"}
+        </li>
       </ul>
       <h2>Additional Recipe Information</h2>
       <ul>
-        <li>Additional Notes: {recipe.meta.additional}</li>
-        <li>Cook for {recipe.meta.cook}</li>
-        <li>Prepare for {recipe.meta.prep}</li>
+        <li>
+          Additional notes:{" "}
+          {recipe.meta.additional !== "" ? recipe.meta.additional : "N/A"}
+        </li>
+        <li>
+          Cook for:{" "}
+          {recipe.meta.cook !== "" ? recipe.meta.cook : "see instructions"}
+        </li>
+        <li>
+          Prepare for:{" "}
+          {recipe.meta.prep !== ""
+            ? " " + recipe.meta.prep
+            : "see instructions"}
+        </li>
         <li>Number of servings: {recipe.meta.servings}</li>
       </ul>
       {recipe.image !== "Recipes Import\\No-Image-Available.jpg" && (
