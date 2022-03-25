@@ -13,7 +13,12 @@ const RecipeInfo = ({ recipe }) => {
         ))}
       </ul>
       <h2>Instructions</h2>
-      <p>{recipe.instructions.toString().replace("Advertisement,", "")}</p>
+      <p>
+        {recipe.instructions
+          .toString()
+          .replace("Advertisement,", "")
+          .replace("Advertisement", "")}
+      </p>
       <h2>Nutrition</h2>
       <ul>
         <li>Calories: {recipe.calories !== "" ? recipe.calories : "N/A"}</li>

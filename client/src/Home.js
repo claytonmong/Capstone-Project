@@ -170,16 +170,18 @@ const Home = (props) => {
           )}
         </div>
       </div>
-      {ingredients.length > 0 &&
-        !showAddIngredient &&
-        !showNotAddIngredient && (
-          <input
-            type="submit"
-            value="Submit Ingredients"
-            className="btn btn-block"
-            onClick={onSubmit}
-          />
-        )}
+      <div className="center">
+        {ingredients.length > 0 &&
+          !showAddIngredient &&
+          !showNotAddIngredient && (
+            <input
+              type="submit"
+              value="Submit Ingredients"
+              className="btn btn-block"
+              onClick={onSubmit}
+            />
+          )}
+      </div>
       {results.length > 0 && (
         <div>
           {typeof results === "undefined" ? (
@@ -193,14 +195,16 @@ const Home = (props) => {
           )}
         </div>
       )}
-      {results.length > 0 && (
-        <input
-          type="reset"
-          value="Clear Recipes"
-          className="btn btn-block"
-          onClick={onClearRecipes}
-        />
-      )}
+      <div className="center">
+        {results.length > 0 && (
+          <input
+            type="reset"
+            value="Clear Recipes"
+            className="btn btn-block"
+            onClick={onClearRecipes}
+          />
+        )}
+      </div>
     </div>
   );
 };
