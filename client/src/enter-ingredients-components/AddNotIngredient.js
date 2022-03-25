@@ -19,7 +19,7 @@ const AddNotIngredient = ({ onAdd }) => {
   return (
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
-        <label>NotIngredient</label>
+        <label>Ingredient</label>
         <input
           type="text"
           placeholder="Add NotIngredient"

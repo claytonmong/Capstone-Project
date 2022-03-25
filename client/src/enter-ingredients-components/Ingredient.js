@@ -5,7 +5,7 @@ const Ingredient = ({ ingredient, onDelete }) => {
     <div className="ingredient">
       <h3>
         <FaTimes
-          style={{ color: "green", cursor: "pointer" }}
+          style={{ color: "red", cursor: "pointer" }}
           onClick={() => onDelete(ingredient.id)}
         />
         {ingredient.text}{" "}

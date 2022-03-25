@@ -19,6 +19,10 @@ const Home = (props) => {
   const onClearIngredients = () => {
     setShowAddIngredient(false);
     setIngredients([]);
+  };
+
+  // Clear  notingredients
+  const onClearNotIngredients = () => {
     setShowNotAddIngredient(false);
     setNotIngredients([]);
   };
@@ -52,7 +56,9 @@ const Home = (props) => {
   //
   // Delete Ingredient
   const deleteNotIngredient = (id) => {
-    setNotIngredients(notingredients.filter((ingredient) => ingredient.id !== id));
+    setNotIngredients(
+      notingredients.filter((ingredient) => ingredient.id !== id)
+    );
   };
 
   // Submit Ingredients
@@ -63,22 +69,22 @@ const Home = (props) => {
       //console.log(ingredients[ingredient].text)
     }
     // slice the last if it is ,
-    if (arr.charAt(arr.length -1) == ','){
-      arr = arr.slice(0,-1)
+    if (arr.charAt(arr.length - 1) === ",") {
+      arr = arr.slice(0, -1);
     }
-    
+
     // add not_included ingredients
-    arr += ';'
+    arr += ";";
     for (let ingredient in notingredients) {
       arr += notingredients[ingredient].text + ",";
       //console.log(ingredients[ingredient].text)
     }
-    if (arr.charAt(arr.length -1) == ','){
-      arr = arr.slice(0,-1)
+    if (arr.charAt(arr.length - 1) === ",") {
+      arr = arr.slice(0, -1);
     }
     //navigate(`/search?q=${arr}`);
     //console.log(typeof arr)
-    console.log(arr)
+    console.log(arr);
     fetch("/search", {
       method: "POST",
       body: JSON.stringify({
@@ -110,35 +116,19 @@ const Home = (props) => {
     <div>
       <div className="container">
         <Header
+          title={"Ingredients to Include"}
           onAdd={() => setShowAddIngredient(!showAddIngredient)}
           showAdd={showAddIngredient}
-          onNotAdd={() => setShowNotAddIngredient(!showNotAddIngredient)}
-          showNotAdd={showNotAddIngredient}
         />
         {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
-        {showNotAddIngredient && <AddNotIngredient onAdd={addNotIngredient} />}
 
         {ingredients.length > 0 ? (
           <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
         ) : (
-          ""//"No Ingredients Entered"
-        )}
-        {notingredients.length > 0 ? (
-          <NotIngredients ingredients={notingredients} onDelete={deleteNotIngredient} />
-        ) : (
-          ""
+          "" //"No Ingredients Entered"
         )}
 
-        {(ingredients.length > 0 || notingredients.length >0) && (!showAddIngredient && !showNotAddIngredient) && (
-          <input
-            type="submit"
-            value="Submit Ingredients"
-            className="btn btn-block"
-            onClick={onSubmit}
-          />
-        )}
-
-        {(ingredients.length > 0 || notingredients.length >0) && (!showAddIngredient && !showNotAddIngredient) && (
+        {ingredients.length > 0 && !showAddIngredient && (
           <input
             type="reset"
             value="Clear Ingredients"
@@ -146,8 +136,43 @@ const Home = (props) => {
             onClick={onClearIngredients}
           />
         )}
-
       </div>
+      <div className="container">
+        <Header
+          title={"Ingredients to Exclude"}
+          onAdd={() => setShowNotAddIngredient(!showNotAddIngredient)}
+          showAdd={showNotAddIngredient}
+        />
+        {showNotAddIngredient && <AddNotIngredient onAdd={addNotIngredient} />}
+
+        {notingredients.length > 0 ? (
+          <NotIngredients
+            ingredients={notingredients}
+            onDelete={deleteNotIngredient}
+          />
+        ) : (
+          ""
+        )}
+
+        {notingredients.length > 0 && !showNotAddIngredient && (
+          <input
+            type="reset"
+            value="Clear Ingredients"
+            className="btn btn-block"
+            onClick={onClearNotIngredients}
+          />
+        )}
+      </div>
+      {ingredients.length > 0 &&
+        !showAddIngredient &&
+        !showNotAddIngredient && (
+          <input
+            type="submit"
+            value="Submit Ingredients"
+            className="btn btn-block"
+            onClick={onSubmit}
+          />
+        )}
       {results.length > 0 && (
         <div>
           {typeof results === "undefined" ? (

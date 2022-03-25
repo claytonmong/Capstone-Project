@@ -22,7 +22,10 @@ const RecipeList = ({ recipe }) => {
             <td>{recipe.title}&emsp;</td>
             <td>{recipe.category !== "" ? recipe.category : "N/A"}&emsp;</td>
             <td>
-              {recipe.meta.total !== "" ? recipe.meta.total : "N/A"}&emsp;
+              {recipe.meta.total !== ""
+                ? recipe.meta.total
+                : "see instructions"}
+              &emsp;
             </td>
             <td>{recipe.calories !== "" ? recipe.calories : "N/A"}&emsp;</td>
           </tr>
