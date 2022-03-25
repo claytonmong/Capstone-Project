@@ -19,41 +19,41 @@ def format_document(soup):
         "image": get_image_src(soup)
     }
 
+    # debug
     print(data['title'])
-
     if data['image'] == "":
         print(f"No image available")
     else:
-        print(f"{data['image']}\n\n")
-
+        print(f"{data['image']}")
+    
+    # serialize to json string
     json_data = json.dumps(data)
 
     return json_data
 
 
 def get_title(soup):
-    recipe_title = soup.find("h1", class_="headline heading-content elementFont__display")
-    return recipe_title.text.strip()
+    title = soup.find("h1", class_="headline heading-content elementFont__display")
+    return title.text.strip()
 
 
 def get_category(soup):
-    recipe_cat = soup.find_all("span", class_="breadcrumbs__title")
-    return recipe_cat[2].text.strip()
+    category = soup.find_all("span", class_="breadcrumbs__title")
+    return category[2].text.strip()
 
 
 def get_author(soup):
-    recipe_author = soup.find("span", class_="author-name authorName linkHoverStyle")
+    author = soup.find("span", class_="author-name authorName linkHoverStyle")
 
-    if recipe_author is None or len(recipe_author) == 0:
+    if author is None or len(author) == 0:
         return ""
     else:
-        return recipe_author.text.strip()
+        return author.text.strip()
 
 
 def get_meta(soup):
-    recipe_meta_info = soup.find_all("div", class_="recipe-meta-item")
-
-    meta_info = {
+    div = soup.find_all("div", class_="recipe-meta-item")
+    meta = {
         "prep": "",
         "cook": "",
         "additional": "",
@@ -61,37 +61,38 @@ def get_meta(soup):
         "servings": "",
         "yield": ""
     }
-
     pattern = r"([A-Za-z]*: )"
-    for item in recipe_meta_info:
+
+    for item in div:
         result = re.split(pattern, item.text.strip())
+        
         while "" in result:
             result.remove("")
 
         if "prep" in result[0]:
-            meta_info["prep"] = result[1]
+            meta["prep"] = result[1]
         elif "cook" in result[0]:
-            meta_info["cook"] = result[1]
+            meta["cook"] = result[1]
         elif "additional" in result[0]:
-            meta_info["additional"] = result[1]
+            meta["additional"] = result[1]
         elif "total" in result[0]:
-            meta_info["total"] = result[1]
+            meta["total"] = result[1]
         elif "Servings" in result[0]:
-            meta_info["servings"] = result[1]
+            meta["servings"] = result[1]
         elif "Yield" in result[0]:
-            meta_info["yield"] = result[1]
+            meta["yield"] = result[1]
 
-    return meta_info
+    return meta
 
 
 def get_ingredients(soup):
-    recipe_ingredients = soup.find_all("span", class_="ingredients-item-name")
-    ingredients_list = []
+    span = soup.find_all("span", class_="ingredients-item-name")
+    ingredients = []
 
-    for ingredient in recipe_ingredients:
-        ingredients_list.append(f"{ingredient.text.strip()}")
+    for ingredient in span:
+        ingredients.append(f"{ingredient.text.strip()}")
 
-    return separate_ingredients(ingredients_list)
+    return separate_ingredients(ingredients)
 
 
 def get_instructions(soup):
@@ -115,8 +116,8 @@ def get_notes(soup):
 
 def get_calories(soup):
     calories = soup.find_all("div", class_="nutrition-top light-underline elementFont__subtitle")
+    pattern = r"([C][a][l][o][r][i][e][s]: )"
 
-    pattern = r"([C][a][l][o][r][i][e][s]: )" # lol
     for item in calories:
         result = re.split(pattern, item.text.strip())
         return result[-1]
@@ -124,37 +125,35 @@ def get_calories(soup):
 
 def get_nutrition(soup):
     # nutrition info grabbed from dialog box
-    nutrition = soup.find_all("div", class_="nutrition-row")
-
-    nutrition_info = {"protein": "", "carbs": "", "fiber": "",
-                      "sugar": "", "fat": "", "sodium": ""}
-
+    div = soup.find_all("div", class_="nutrition-row")
+    nutrition = {"protein": "", "carbs": "", "fiber": "", "sugar": "", "fat": "", "sodium": ""}
     pattern = r"([:]?  [ ]?)"
-    for nutrient in nutrition:
+
+    for nutrient in div:
         result = re.split(pattern, nutrient.text.strip())
 
         while "" in result:
             result.remove("")
 
+        # i hate this...
         if "protein" in result[0]:
-            nutrition_info["protein"] = result[2]
+            nutrition["protein"] = result[2]
         elif "carbohydrates" in result[0]:
-            nutrition_info["carbs"] = result[2]
+            nutrition["carbs"] = result[2]
         elif "dietary fiber" in result[0]:
-            nutrition_info["fiber"] = result[2]
+            nutrition["fiber"] = result[2]
         elif "sugar" in result[0]:
-            nutrition_info["sugar"] = result[2]
+            nutrition["sugar"] = result[2]
         elif "fat" in result[0]:
-            nutrition_info["fat"] = result[2]
+            nutrition["fat"] = result[2]
         elif "sodium" in result[0]:
-            nutrition_info["sodium"] = result[2]
+            nutrition["sodium"] = result[2]
 
-    return nutrition_info
+    return nutrition
 
 
 def separate_ingredients(ingredients_list):
     tmp = []
-
     ingredients_list = [sub.replace('\u2009', ' ') for sub in ingredients_list]
 
     # replace vulgar fraction chars with decimal equivalents
@@ -193,22 +192,25 @@ def separate_directions(directions):
 
     return directions_list
 
-def get_image_src(soup):
-    src = ""
 
-    #check for image container
+def get_image_src(soup):
+    # check for image in main container
     div = soup.find('div', class_="image-container")
 
+    # some recipes display videos as primary focus in main container
     if div != None:
+        # if primary focus is an image, use it
         src = div.div.img['src']
     else:
+        # otherwise, thumbnails exist for those with videos, use that instead
         src = get_thumbnail_image(soup)
-
+    
     return src
+
 
 def get_thumbnail_image(soup):
     aside = soup.find('aside', attrs={'class': lambda e: e.startswith('recipe-tout-image') if e else False})
-    return aside.img[0]['src']
+    return aside("img")[0]["src"]
 
 
 def post_to_index(es):
@@ -226,12 +228,10 @@ def post_to_index(es):
             data = format_document(soup)
             
             # put document in es cluster
-            # create_document(es, id_num, data)
+            create_document(es, id_num, data)
             
         except Exception as err:
             print(err)
-            # print(f"[post_to_index]\n{err}\n\n")
-            # pass
 
         id_num += 1
 
@@ -251,7 +251,9 @@ def authenticate_http():
 
 def create_document(es, id_num, doc):
     res = es.index(index=INDEX, id=id_num, document=doc)
-    print(f"Document {id_num} was {res['result']} successfully")
+
+    # debug
+    print(f"Document {id_num} was {res['result']} successfully\n\n")
 
 
 if __name__ == '__main__':
