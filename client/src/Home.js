@@ -114,54 +114,61 @@ const Home = (props) => {
   };
   return (
     <div>
-      <div className="container">
-        <Header
-          title={"Ingredients to Include"}
-          onAdd={() => setShowAddIngredient(!showAddIngredient)}
-          showAdd={showAddIngredient}
-        />
-        {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
-
-        {ingredients.length > 0 ? (
-          <Ingredients ingredients={ingredients} onDelete={deleteIngredient} />
-        ) : (
-          "" //"No Ingredients Entered"
-        )}
-
-        {ingredients.length > 0 && !showAddIngredient && (
-          <input
-            type="reset"
-            value="Clear Ingredients"
-            className="btn btn-block"
-            onClick={onClearIngredients}
+      <div className="parent">
+        <div className="container">
+          <Header
+            title={"Ingredients to Include"}
+            onAdd={() => setShowAddIngredient(!showAddIngredient)}
+            showAdd={showAddIngredient}
           />
-        )}
-      </div>
-      <div className="container">
-        <Header
-          title={"Ingredients to Exclude"}
-          onAdd={() => setShowNotAddIngredient(!showNotAddIngredient)}
-          showAdd={showNotAddIngredient}
-        />
-        {showNotAddIngredient && <AddNotIngredient onAdd={addNotIngredient} />}
+          {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
 
-        {notingredients.length > 0 ? (
-          <NotIngredients
-            ingredients={notingredients}
-            onDelete={deleteNotIngredient}
-          />
-        ) : (
-          ""
-        )}
+          {ingredients.length > 0 ? (
+            <Ingredients
+              ingredients={ingredients}
+              onDelete={deleteIngredient}
+            />
+          ) : (
+            "" //"No Ingredients Entered"
+          )}
 
-        {notingredients.length > 0 && !showNotAddIngredient && (
-          <input
-            type="reset"
-            value="Clear Ingredients"
-            className="btn btn-block"
-            onClick={onClearNotIngredients}
+          {ingredients.length > 0 && !showAddIngredient && (
+            <input
+              type="reset"
+              value="Clear Ingredients"
+              className="btn btn-block"
+              onClick={onClearIngredients}
+            />
+          )}
+        </div>
+        <div className="container">
+          <Header
+            title={"Ingredients to Exclude"}
+            onAdd={() => setShowNotAddIngredient(!showNotAddIngredient)}
+            showAdd={showNotAddIngredient}
           />
-        )}
+          {showNotAddIngredient && (
+            <AddNotIngredient onAdd={addNotIngredient} />
+          )}
+
+          {notingredients.length > 0 ? (
+            <NotIngredients
+              ingredients={notingredients}
+              onDelete={deleteNotIngredient}
+            />
+          ) : (
+            ""
+          )}
+
+          {notingredients.length > 0 && !showNotAddIngredient && (
+            <input
+              type="reset"
+              value="Clear Ingredients"
+              className="btn btn-block"
+              onClick={onClearNotIngredients}
+            />
+          )}
+        </div>
       </div>
       {ingredients.length > 0 &&
         !showAddIngredient &&

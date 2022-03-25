@@ -32,7 +32,7 @@ body {
 
 .container {
   max-width: 500px;
-  margin: 30px auto;
+  margin: 5px 5px;
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
@@ -77,7 +77,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 12px;
+  font-size: 15px;
   font-family: inherit;
 }
 
@@ -149,4 +149,9 @@ body {
 footer {
   margin-top: 30px;
   text-align: center;
+}
+
+.parent {
+  display: flex;
+  justify-content: center; /* horizontally center */
 }
