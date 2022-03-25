@@ -4,7 +4,6 @@ import json
 import re
 from elasticsearch import Elasticsearch
 from globals import URLS, USERNAME, PASSWORD, INDEX
-import time
 
 
 def format_document(soup):
@@ -19,6 +18,13 @@ def format_document(soup):
         "calories": get_calories(soup),
         "image": get_image_src(soup)
     }
+
+    print(data['title'])
+
+    if data['image'] == "":
+        print(f"No image available")
+    else:
+        print(f"{data['image']}\n\n")
 
     json_data = json.dumps(data)
 
@@ -188,18 +194,21 @@ def separate_directions(directions):
     return directions_list
 
 def get_image_src(soup):
-    img_src = ""
+    src = ""
 
-    try:
-        img_aside = soup.find('aside', attrs={'class': lambda e: e.startswith('recipe-tout-image') if e else False})
-        img_src = img_aside("img")[0]["src"]
-    except Exception as err:
-        print(f"\tError finding image for this recipe. \n\tError: {err}")
+    #check for image container
+    div = soup.find('div', class_="image-container")
 
-    if img_src == "":
-        img_src = "Recipes Import\\No-Image-Available.jpg"
+    if div != None:
+        src = div.div.img['src']
+    else:
+        src = get_thumbnail_image(soup)
 
-    return img_src
+    return src
+
+def get_thumbnail_image(soup):
+    aside = soup.find('aside', attrs={'class': lambda e: e.startswith('recipe-tout-image') if e else False})
+    return aside.img[0]['src']
 
 
 def post_to_index(es):
@@ -209,14 +218,22 @@ def post_to_index(es):
         try:
             # request url
             resp = requests.get(url)
+            
             # parse the html elements
             soup = BeautifulSoup(resp.content, "html.parser")
+            
+            # serialize to json
             data = format_document(soup)
-            create_document(es, id_num, data)
-            id_num += 1
+            
+            # put document in es cluster
+            # create_document(es, id_num, data)
+            
         except Exception as err:
-            print(f"Error occurred. \nSource={url}\n{err}\n\n")
+            print(err)
+            # print(f"[post_to_index]\n{err}\n\n")
+            # pass
 
+        id_num += 1
 
 
 def authenticate_http():
@@ -234,20 +251,9 @@ def authenticate_http():
 
 def create_document(es, id_num, doc):
     res = es.index(index=INDEX, id=id_num, document=doc)
-
-    if res['result'] == 'created':
-        print(f"Document {id_num} successfully created")
-    elif res['result'] == 'updated':
-        print(f"Document {id_num} was updated successfully")
+    print(f"Document {id_num} was {res['result']} successfully")
 
 
 if __name__ == '__main__':
-    # # uncomment if you're curious how long execution takes
-    # start = time.time()
-
     es = authenticate_http()
     post_to_index(es)
-
-    # # uncomment if you're curious how long execution takes
-    # end = time.time()
-    # print(f"Total execution time: {end - start} seconds")
