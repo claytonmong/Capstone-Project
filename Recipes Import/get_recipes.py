@@ -243,11 +243,11 @@ def create_document(es, id_num, doc):
 
 if __name__ == '__main__':
     # # uncomment if you're curious how long execution takes
-    # start = time.time()
+    start = time.time()
 
     es = authenticate_http()
     post_to_index(es)
 
     # # uncomment if you're curious how long execution takes
-    # end = time.time()
-    # print(f"Total execution time: {end - start} seconds")
+    end = time.time()
+    print(f"Total execution time: {end - start} seconds")

@@ -25,7 +25,7 @@ def home():
 def search():
 	request_data = json.loads(request.data)
 	userInputString = request_data['content']
-	res = Query(userInputString[:-1])
+	res = Query(userInputString)#[:-1])
 	return {"results" : dict(res)}
 
 if __name__ == '__main__':
