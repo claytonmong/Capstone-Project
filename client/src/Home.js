@@ -65,7 +65,7 @@ const Home = (props) => {
   const onSubmit = () => {
     let arr = "";
     for (let ingredient in ingredients) {
-      arr += ingredients[ingredient].text.trim() + ",";
+      arr += ingredients[ingredient].text + ",";
       //console.log(ingredients[ingredient].text);
     }
     // slice the last if it is ,
@@ -76,7 +76,7 @@ const Home = (props) => {
     // add not_included ingredients
     arr += ";";
     for (let ingredient in notingredients) {
-      arr += notingredients[ingredient].text.trim() + ",";
+      arr += notingredients[ingredient].text + ",";
       //console.log(ingredients[ingredient].text)
     }
     if (arr.charAt(arr.length - 1) === ",") {
