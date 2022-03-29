@@ -64,7 +64,11 @@ const Home = (props) => {
   // Submit Ingredients
   const onSubmit = () => {
     let arr = "";
+    let goodInput = false;
     for (let ingredient in ingredients) {
+      if (ingredients[ingredient].text.trim().length !== 0) {
+        goodInput = true;
+      }
       arr += ingredients[ingredient].text + ",";
       //console.log(ingredients[ingredient].text);
     }
@@ -84,7 +88,7 @@ const Home = (props) => {
     }
     //navigate(`/search?q=${arr}`);
     //console.log(typeof arr)
-    if (arr.trim().length === 1) {
+    if (!goodInput) {
       r.push("No results found");
     } else {
       console.log(arr);
