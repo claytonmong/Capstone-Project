@@ -6,7 +6,7 @@ const AddIngredient = ({ onAdd }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!text) {
+    if (text.trim().length === 0) {
       alert("Please enter an ingredient");
       return;
     }

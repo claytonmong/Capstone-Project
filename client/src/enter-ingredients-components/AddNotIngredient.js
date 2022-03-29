@@ -6,8 +6,8 @@ const AddNotIngredient = ({ onAdd }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!text) {
-      alert("Please enter an ingredient you do not want to include");
+    if (text.trim().length === 0) {
+      alert("Please enter an ingredient");
       return;
     }
 

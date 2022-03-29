@@ -66,7 +66,7 @@ const Home = (props) => {
     let arr = "";
     for (let ingredient in ingredients) {
       arr += ingredients[ingredient].text + ",";
-      //console.log(ingredients[ingredient].text)
+      //console.log(ingredients[ingredient].text);
     }
     // slice the last if it is ,
     if (arr.charAt(arr.length - 1) === ",") {
@@ -84,6 +84,7 @@ const Home = (props) => {
     }
     //navigate(`/search?q=${arr}`);
     //console.log(typeof arr)
+
     console.log(arr);
     fetch("/search", {
       method: "POST",
@@ -108,6 +109,7 @@ const Home = (props) => {
         setResults(r);
         console.log(results);
       });
+
     console.log(results);
     console.log(typeof SampleRecipeData[0]);
     // console.log(typeof JSON.parse(results[0]))
