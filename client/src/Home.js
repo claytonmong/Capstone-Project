@@ -76,7 +76,7 @@ const Home = (props) => {
     // add not_included ingredients
     arr += ";";
     for (let ingredient in notingredients) {
-      arr += notingredients[ingredient].text + ",";
+      arr += notingredients[ingredient].text.trim() + ",";
       //console.log(ingredients[ingredient].text)
     }
     if (arr.charAt(arr.length - 1) === ",") {
