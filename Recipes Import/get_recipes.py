@@ -116,7 +116,7 @@ def get_notes(soup):
 
 def get_calories(soup):
     calories = soup.find_all("div", class_="nutrition-top light-underline elementFont__subtitle")
-    pattern = r"([C][a][l][o][r][i][e][s]: )"
+    pattern = r"(\bCalories\b: )"
 
     for item in calories:
         result = re.split(pattern, item.text.strip())
@@ -182,7 +182,7 @@ def separate_ingredients(ingredients_list):
 
 def separate_directions(directions):
     directions_list = []
-    pattern = r'([S][t][e][p] [0-9]?[0-9]   )'
+    pattern = r'(\bStep\b [0-9]?[0-9]   )'
 
     for direction in directions:
         result = re.split(pattern, direction.text.strip())
