@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddIngredient = ({ onAdd }) => {
+const AddNotIngredient = ({ onAdd }) => {
   const [text, setText] = useState("");
 
   const onSubmit = (e) => {
@@ -22,7 +22,7 @@ const AddIngredient = ({ onAdd }) => {
         <label>Ingredient</label>
         <input
           type="text"
-          placeholder="Add Ingredient"
+          placeholder="Add NotIngredient"
           value={text}
           onChange={(e) => setText(e.target.value)}
         ></input>
@@ -33,4 +33,4 @@ const AddIngredient = ({ onAdd }) => {
   );
 };
 
-export default AddIngredient;
+export default AddNotIngredient;
