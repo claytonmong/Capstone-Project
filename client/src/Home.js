@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { Component, useState } from "react";
 import Header from "./enter-ingredients-components/Header";
 import Ingredients from "./enter-ingredients-components/Ingredients";
 import NotIngredients from "./enter-ingredients-components/NotIngredients";
@@ -6,14 +6,26 @@ import AddIngredient from "./enter-ingredients-components/AddIngredient";
 import AddNotIngredient from "./enter-ingredients-components/AddNotIngredient";
 import SampleRecipeData from "./sample-data/SampleRecipeData";
 import RecipeList from "./recipe-components/RecipeList";
+import { useLocation } from "react-router-dom";
 
 const Home = (props) => {
+  const location = useLocation();
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
   const [notingredients, setNotIngredients] = useState([]);
-  const [results, setResults] = useState([]);
-
+  let [results, setResults] = useState([]);
+  let r = [];
+  const getResBack = () => {
+    if (location.state && location.state.item) {
+      console.log(" LOCATION STATE is NOT null");
+      results = location.state.item;
+    } else {
+      console.log(" LOCATION STATE its null");
+    }
+    
+  }
+  getResBack();
   // Clear ingredients
   const onClearIngredients = () => {
     setShowAddIngredient(false);
@@ -182,14 +194,18 @@ const Home = (props) => {
             />
           )}
       </div>
+      
       {results.length > 0 && (
         <div>
           {typeof results === "undefined" ? (
             <p></p>
           ) : (
+            
             results.map((member, i) => (
+              
               <div key={i}>
-                <RecipeList recipe={JSON.parse(member)} />
+                {console.log("stupid")}
+                <RecipeList recipe={JSON.parse(member)} searchRes={results} />
               </div>
             ))
           )}

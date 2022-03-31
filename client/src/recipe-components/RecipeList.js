@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
-const RecipeList = ({ recipe }) => {
+const RecipeList = ({ recipe, searchRes }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     console.log("clicked");
     console.log(recipe);
-    navigate("/recipe", { state: { id: 1, item: recipe } });
+    navigate("/recipe", { state: { id: 1, item: recipe, res: searchRes } });
   };
   return (
     <div className="body">
