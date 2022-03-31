@@ -6,8 +6,8 @@ const AddNotIngredient = ({ onAdd }) => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!text) {
-      alert("Please enter an ingredient you do not want to include");
+    if (text.trim().length === 0) {
+      alert("Please enter an ingredient");
       return;
     }
 
@@ -23,7 +23,12 @@ const AddNotIngredient = ({ onAdd }) => {
         <input
           type="text"
           placeholder="Add NotIngredient"
-          value={text}
+          /* Ingredient must begin with a letter and only contains the symbols [a-zA-Z-'& ] */
+          value={
+            (text === "-") | ((text === "'") | (text === "&") | (text === " "))
+              ? ""
+              : text.replace(/[^a-zA-Z-'& ]/g, "")
+          }
           onChange={(e) => setText(e.target.value)}
         ></input>
       </div>
