@@ -22,7 +22,12 @@ const AddIngredient = ({ onAdd }) => {
         <input
           type="text"
           placeholder="Add Ingredient"
-          value={text.replace(/[^a-zA-Z-'& ]/g, "")}
+          /* Ingredient must begin with a letter and only contains the symbols [a-zA-Z-'& ] */
+          value={
+            (text === "-") | ((text === "'") | (text === "&") | (text === " "))
+              ? ""
+              : text.replace(/[^a-zA-Z-'& ]/g, "")
+          }
           onChange={(e) => setText(e.target.value)}
         ></input>
       </div>

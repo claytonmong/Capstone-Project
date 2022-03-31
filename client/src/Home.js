@@ -102,12 +102,9 @@ const Home = (props) => {
 
           r.push(h);
         }
-        if (r.length === 0) {
-          r.push("No results found");
-        } else {
+        if (r.length !== 0) {
           response = data;
           setResults(r);
-          console.log(results);
         }
       });
 
