@@ -13,7 +13,6 @@ const Home = (props) => {
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
   const [notingredients, setNotIngredients] = useState([]);
   const [results, setResults] = useState([]);
-  let r = [];
 
   // Clear ingredients
   const onClearIngredients = () => {
@@ -30,7 +29,6 @@ const Home = (props) => {
   // Clear recipes
   const onClearRecipes = () => {
     setResults([]);
-    let r = [];
   };
 
   // Add Ingredient
@@ -63,6 +61,8 @@ const Home = (props) => {
 
   // Submit Ingredients
   const onSubmit = () => {
+    setResults([]);
+    let r = [];
     let arr = "";
     for (let ingredient in ingredients) {
       arr += ingredients[ingredient].text + ",";
@@ -102,12 +102,10 @@ const Home = (props) => {
 
           r.push(h);
         }
-        if (r.length === 0) {
-          r.push("No results found");
+        if (r.length !== 0) {
+          response = data;
+          setResults(r);
         }
-        response = data;
-        setResults(r);
-        console.log(results);
       });
 
     console.log(results);
