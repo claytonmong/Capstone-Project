@@ -23,7 +23,7 @@ const AddNotIngredient = ({ onAdd }) => {
         <input
           type="text"
           placeholder="Add NotIngredient"
-          value={text}
+          value={text.replace(/[^a-zA-Z-'& ]/g, "")}
           onChange={(e) => setText(e.target.value)}
         ></input>
       </div>

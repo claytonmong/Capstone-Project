@@ -12,7 +12,6 @@ const AddIngredient = ({ onAdd }) => {
     }
 
     onAdd({ text });
-
     setText("");
   };
 
@@ -23,7 +22,7 @@ const AddIngredient = ({ onAdd }) => {
         <input
           type="text"
           placeholder="Add Ingredient"
-          value={text}
+          value={text.replace(/[^a-zA-Z-'& ]/g, "")}
           onChange={(e) => setText(e.target.value)}
         ></input>
       </div>
