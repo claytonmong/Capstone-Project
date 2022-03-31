@@ -9,11 +9,11 @@ const Recipe = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const recipe = location.state.item;
-	//const searchResutls = location.state.searchresults;
+	const searchRes = location.state.res;
 	
 	const handleClick = () => {
 		console.log("clicked");
-		navigate("/", { state: { id: 1, item: recipe } });
+		navigate("/", { state: { id: 1, item: searchRes } });
 	}
 	console.log(location.state.item)
 	  return (
@@ -21,7 +21,7 @@ const Recipe = () => {
 	  <RecipeInfo recipe={recipe}/>
 	  <input
 		type="submit"
-		value="View Full Recipe"
+		value="Return to Search Results"
 		className="btn btn-block"
 		onClick={handleClick}
 	  />

@@ -6,15 +6,29 @@ import AddIngredient from "./enter-ingredients-components/AddIngredient";
 import AddNotIngredient from "./enter-ingredients-components/AddNotIngredient";
 import SampleRecipeData from "./sample-data/SampleRecipeData";
 import RecipeList from "./recipe-components/RecipeList";
+import { useLocation } from "react-router-dom";
 
 const Home = (props) => {
+  const location = useLocation();
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
   const [notingredients, setNotIngredients] = useState([]);
   const [results, setResults] = useState([]);
   let r = [];
+  let gotResults = false;
+  const getResBack = () => {
+    if (location.state && location.state.item) {
+      console.log(" LOCATION STATE is NOT null");
+      //console.log(location.state.item);
+      setResults(location.state.item);
+      gotResults = true;
+    } else {
+      console.log(" LOCATION STATE its null");
+    }
 
+  }
+  
   // Clear ingredients
   const onClearIngredients = () => {
     setShowAddIngredient(false);
@@ -182,14 +196,18 @@ const Home = (props) => {
             />
           )}
       </div>
+      
       {results.length > 0 && (
         <div>
           {typeof results === "undefined" ? (
             <p></p>
           ) : (
+            
             results.map((member, i) => (
+              
               <div key={i}>
-                <RecipeList recipe={JSON.parse(member)} />
+                {console.log("stupid")}
+                <RecipeList recipe={JSON.parse(member)} searchRes={results} />
               </div>
             ))
           )}
@@ -205,6 +223,17 @@ const Home = (props) => {
           />
         )}
       </div>
+      <div className="center">
+      
+      {location.state && location.state.item && !gotResults && (
+        <input
+        type="reset"
+        value="Get Recipes From Previous Search"
+        className="btn btn-block"
+        onClick={getResBack}
+        />
+      )}
+          </div>
     </div>
   );
 };
