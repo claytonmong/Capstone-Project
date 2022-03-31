@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Pluralize from "pluralize";
 import Header from "./enter-ingredients-components/Header";
 import Ingredients from "./enter-ingredients-components/Ingredients";
 import NotIngredients from "./enter-ingredients-components/NotIngredients";
@@ -10,20 +11,28 @@ import RecipeList from "./recipe-components/RecipeList";
 const Home = (props) => {
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  const [ingredientsSingular, setIngredientsSingular] = useState([]);
+  const [ingredientsPlural, setIngredientsPlural] = useState([]);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
   const [notingredients, setNotIngredients] = useState([]);
+  const [notingredientsSingular, setNotIngredientsSingular] = useState([]);
+  const [notingredientsPlural, setNotIngredientsPlural] = useState([]);
   const [results, setResults] = useState([]);
 
   // Clear ingredients
   const onClearIngredients = () => {
     setShowAddIngredient(false);
     setIngredients([]);
+    setIngredientsSingular([]);
+    setIngredientsPlural([]);
   };
 
   // Clear  notingredients
   const onClearNotIngredients = () => {
     setShowNotAddIngredient(false);
     setNotIngredients([]);
+    setNotIngredientsSingular([]);
+    setNotIngredientsPlural([]);
   };
 
   // Clear recipes
@@ -36,12 +45,26 @@ const Home = (props) => {
     const id = Math.floor(Math.random() * 10000) + 1;
     const newIngredient = { id, ...ingredient };
     setIngredients([...ingredients, newIngredient]);
+
+    const ingred1 = Pluralize(ingredient.text, 1);
+    const newIngredient1 = { id, ingred1 };
+    setIngredientsSingular([...ingredientsSingular, newIngredient1]);
+
+    const ingred2 = Pluralize(ingredient.text, 2);
+    const newIngredient2 = { id, ingred2 };
+    setIngredientsPlural([...ingredientsPlural, newIngredient2]);
   };
 
   //
   // Delete Ingredient
   const deleteIngredient = (id) => {
     setIngredients(ingredients.filter((ingredient) => ingredient.id !== id));
+    setIngredientsSingular(
+      ingredientsSingular.filter((ingredient) => ingredient.id !== id)
+    );
+    setIngredientsPlural(
+      ingredientsPlural.filter((ingredient) => ingredient.id !== id)
+    );
   };
 
   // Add Not-included Ingredient
@@ -49,6 +72,14 @@ const Home = (props) => {
     const id = Math.floor(Math.random() * 10000) + 1;
     const newIngredient = { id, ...ingredient };
     setNotIngredients([...notingredients, newIngredient]);
+
+    const ingred1 = Pluralize(ingredient.text, 1);
+    const newIngredient1 = { id, ingred1 };
+    setNotIngredientsSingular([...notingredientsSingular, newIngredient1]);
+
+    const ingred2 = Pluralize(ingredient.text, 2);
+    const newIngredient2 = { id, ingred2 };
+    setNotIngredientsPlural([...notingredientsPlural, newIngredient2]);
   };
 
   //
@@ -57,6 +88,12 @@ const Home = (props) => {
     setNotIngredients(
       notingredients.filter((ingredient) => ingredient.id !== id)
     );
+    setNotIngredientsSingular(
+      ingredientsSingular.filter((ingredient) => ingredient.id !== id)
+    );
+    setNotIngredientsPlural(
+      ingredientsPlural.filter((ingredient) => ingredient.id !== id)
+    );
   };
 
   // Submit Ingredients
@@ -64,10 +101,15 @@ const Home = (props) => {
     setResults([]);
     let r = [];
     let arr = "";
-    for (let ingredient in ingredients) {
-      arr += ingredients[ingredient].text + ",";
+    for (let ingredient in ingredientsSingular) {
+      arr += ingredientsSingular[ingredient].ingred1 + ",";
       //console.log(ingredients[ingredient].text);
     }
+    for (let ingredient in ingredientsPlural) {
+      arr += ingredientsPlural[ingredient].ingred2 + ",";
+      //console.log(ingredients[ingredient].text);
+    }
+
     // slice the last if it is ,
     if (arr.charAt(arr.length - 1) === ",") {
       arr = arr.slice(0, -1);
@@ -75,10 +117,15 @@ const Home = (props) => {
 
     // add not_included ingredients
     arr += ";";
-    for (let ingredient in notingredients) {
-      arr += notingredients[ingredient].text + ",";
-      //console.log(ingredients[ingredient].text)
+    for (let ingredient in notingredientsSingular) {
+      arr += notingredientsSingular[ingredient].ingred1 + ",";
+      //console.log(ingredients[ingredient].text);
     }
+    for (let ingredient in notingredientsPlural) {
+      arr += notingredientsPlural[ingredient].ingred2 + ",";
+      //console.log(ingredients[ingredient].text);
+    }
+
     if (arr.charAt(arr.length - 1) === ",") {
       arr = arr.slice(0, -1);
     }
