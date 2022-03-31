@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { Component, useState } from "react";
 import Header from "./enter-ingredients-components/Header";
 import Ingredients from "./enter-ingredients-components/Ingredients";
 import NotIngredients from "./enter-ingredients-components/NotIngredients";
@@ -14,20 +14,18 @@ const Home = (props) => {
   const [ingredients, setIngredients] = useState([]);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
   const [notingredients, setNotIngredients] = useState([]);
-  const [results, setResults] = useState([]);
+  let [results, setResults] = useState([]);
   let r = [];
-  let gotResults = false;
   const getResBack = () => {
     if (location.state && location.state.item) {
       console.log(" LOCATION STATE is NOT null");
-      //console.log(location.state.item);
-      setResults(location.state.item);
-      gotResults = true;
+      results = location.state.item;
     } else {
       console.log(" LOCATION STATE its null");
     }
-
+    
   }
+  getResBack();
   
   // Clear ingredients
   const onClearIngredients = () => {
@@ -223,17 +221,6 @@ const Home = (props) => {
           />
         )}
       </div>
-      <div className="center">
-      
-      {location.state && location.state.item && !gotResults && (
-        <input
-        type="reset"
-        value="Get Recipes From Previous Search"
-        className="btn btn-block"
-        onClick={getResBack}
-        />
-      )}
-          </div>
     </div>
   );
 };

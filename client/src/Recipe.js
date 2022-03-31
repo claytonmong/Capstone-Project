@@ -19,12 +19,14 @@ const Recipe = () => {
 	  return (
 	<div>
 	  <RecipeInfo recipe={recipe}/>
+	  <div className="center">
 	  <input
 		type="submit"
 		value="Return to Search Results"
 		className="btn btn-block"
 		onClick={handleClick}
 	  />
+	  </div>
 	</div>
 	
   );
