@@ -89,10 +89,10 @@ const Home = (props) => {
       notingredients.filter((ingredient) => ingredient.id !== id)
     );
     setNotIngredientsSingular(
-      ingredientsSingular.filter((ingredient) => ingredient.id !== id)
+      notingredientsSingular.filter((ingredient) => ingredient.id !== id)
     );
     setNotIngredientsPlural(
-      ingredientsPlural.filter((ingredient) => ingredient.id !== id)
+      notingredientsPlural.filter((ingredient) => ingredient.id !== id)
     );
   };
 
