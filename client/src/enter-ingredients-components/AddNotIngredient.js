@@ -22,7 +22,7 @@ const AddNotIngredient = ({ onAdd }) => {
         <label>Ingredient</label>
         <input
           type="text"
-          placeholder="Add NotIngredient"
+          placeholder="Add Ingredient"
           /* Ingredient must begin with a letter and only contains the symbols [a-zA-Z-'& ] */
           value={
             (text === "-") | ((text === "'") | (text === "&") | (text === " "))
