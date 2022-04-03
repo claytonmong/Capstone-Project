@@ -40,6 +40,9 @@ const Home = (props) => {
 
   // Clear recipes
   const onClearRecipes = () => {
+    if (location.state && location.state.item) {
+      location.state.item = null;
+    }
     setResults([]);
   };
 
@@ -73,6 +76,7 @@ const Home = (props) => {
 
   // Submit Ingredients
   const onSubmit = () => {
+    onClearRecipes();
     setResults([]);
     let r = [];
     let arr = "";
