@@ -1,5 +1,5 @@
 import Pluralize from "pluralize";
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Header from "./enter-ingredients-components/Header";
 import Ingredients from "./enter-ingredients-components/Ingredients";
 import NotIngredients from "./enter-ingredients-components/NotIngredients";
@@ -13,41 +13,6 @@ const Home = (props) => {
   const location = useLocation();
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
-
-  // const repopulateSingularPluralIngreds = (ingredients) => {
-  //   setIngredientsSingular([]);
-  //   setIngredientsPlural([]);
-
-  //   for (let i in ingredients) {
-  //     const ingredient = ingredients[i];
-  //     const id = ingredient.id;
-
-  //     const ingred1 = Pluralize(ingredient.text, 1);
-  //     const newIngredient1 = { id, ingred1 };
-  //     setIngredientsSingular([...ingredientsSingular, newIngredient1]);
-
-  //     const ingred2 = Pluralize(ingredient.text, 2);
-  //     const newIngredient2 = { id, ingred2 };
-  //     setIngredientsPlural([...ingredientsPlural, newIngredient2]);
-  //   }
-  // };
-
-  // const repopulateSingularPluralNotIngreds = (ingredients) => {
-  //   setNotIngredientsSingular([]);
-  //   setNotIngredientsPlural([]);
-
-  //   for (let ingredient in ingredients) {
-  //     const id = ingredient.id;
-
-  //     const ingred1 = Pluralize(ingredient.text, 1);
-  //     const newIngredient1 = { id, ingred1 };
-  //     setNotIngredientsSingular([...notingredientsSingular, newIngredient1]);
-
-  //     const ingred2 = Pluralize(ingredient.text, 2);
-  //     const newIngredient2 = { id, ingred2 };
-  //     setNotIngredientsPlural([...notingredientsPlural, newIngredient2]);
-  //   }
-  // };
 
   let [ingredients, setIngredients] = useState([]);
   let [ingredientsSingular, setIngredientsSingular] = useState([]);
