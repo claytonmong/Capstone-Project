@@ -132,7 +132,6 @@ const Home = (props) => {
     if (location.state && location.state.notingredListItem) {
       location.state.notingredListItem = null;
     }
-    location.state.notingredListItem = null;
     setNotIngredients(
       notingredients.filter((ingredient) => ingredient.id !== id)
     );
