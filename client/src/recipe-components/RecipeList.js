@@ -1,12 +1,33 @@
 import { useNavigate } from "react-router-dom";
 
-const RecipeList = ({ recipe, searchRes }) => {
+const RecipeList = ({
+  recipe,
+  searchRes,
+  ingredList,
+  sIngredList,
+  pIngredList,
+  notingredList,
+  sNotIngredList,
+  pNotIngredList,
+}) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
     console.log("clicked");
     console.log(recipe);
-    navigate("/recipe", { state: { id: 1, item: recipe, res: searchRes } });
+    navigate("/recipe", {
+      state: {
+        id: 1,
+        item: recipe,
+        res: searchRes,
+        ingredListItem: ingredList,
+        sIngredListItem: sIngredList,
+        pIngredListItem: pIngredList,
+        notingredListItem: notingredList,
+        sNotIngredListItem: sNotIngredList,
+        pNotIngredListItem: pNotIngredList,
+      },
+    });
   };
   return (
     <div className="body">
