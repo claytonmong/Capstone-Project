@@ -15,8 +15,6 @@ const Home = (props) => {
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
 
-  // let [includeCategories, setIncludeCategories] = useState([]);
-
   let [ingredients, setIngredients] = useState([]);
   let [ingredientsSingular, setIngredientsSingular] = useState([]);
   let [ingredientsPlural, setIngredientsPlural] = useState([]);
@@ -48,23 +46,6 @@ const Home = (props) => {
     }
   };
   getResBack();
-
-  // const clearIncludeCategories = () => {
-  //   setIncludeCategories([]);
-  // };
-
-  // // Save Include Categories
-  // const saveIncludeCategory = (category) => {
-  //   // if (location.state && location.state.includeCategoriesItem) {
-  //   //   location.state.includeCategoriesItem = null;
-  //   // }
-  //   const id = Math.floor(Math.random() * 10000) + 1;
-  //   const cat = category.text;
-  //   console.log("text:" + cat);
-  //   const newCat = { id, cat };
-  //   setIncludeCategories([...includeCategories, newCat]);
-  //   // setIncludeCategories(...includeCategories, category);
-  // };
 
   // Clear ingredients
   const onClearIngredients = () => {
@@ -171,18 +152,13 @@ const Home = (props) => {
     let arr = "";
 
     for (let ingredient in ingredientsSingular) {
-      arr += ingredientsSingular[ingredient].ingred1 + ",";
+      arr += ingredientsSingular[ingredient].ingred1.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
     for (let ingredient in ingredientsPlural) {
-      arr += ingredientsPlural[ingredient].ingred2 + ",";
+      arr += ingredientsPlural[ingredient].ingred2.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
-
-    // for (let category in includeCategories) {
-    //   console.log("1:" + includeCategories[category].cat);
-    //   arr += includeCategories[category].cat + ",";
-    // }
 
     // slice the last if it is ,
     if (arr.charAt(arr.length - 1) === ",") {
@@ -192,11 +168,11 @@ const Home = (props) => {
     // add not_included ingredients
     arr += ";";
     for (let ingredient in notingredientsSingular) {
-      arr += notingredientsSingular[ingredient].ingred1 + ",";
+      arr += notingredientsSingular[ingredient].ingred1.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
     for (let ingredient in notingredientsPlural) {
-      arr += notingredientsPlural[ingredient].ingred2 + ",";
+      arr += notingredientsPlural[ingredient].ingred2.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
 
@@ -242,13 +218,7 @@ const Home = (props) => {
             onAdd={() => setShowAddIngredient(!showAddIngredient)}
             showAdd={showAddIngredient}
           />
-          {showAddIngredient && (
-            <AddIngredient
-              onAdd={addIngredient}
-              // saveIncludeCategory={saveIncludeCategory}
-              // clearIncludeCategories={clearIncludeCategories}
-            />
-          )}
+          {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
 
           {ingredients.length > 0 ? (
             <Ingredients

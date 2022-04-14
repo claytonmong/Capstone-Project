@@ -1,6 +1,13 @@
 import { FaTimes } from "react-icons/fa";
 
 const RecipeInfo = ({ recipe }) => {
+  let recipeInstr = "";
+  for (let str in recipe.instructions) {
+    recipeInstr =
+      recipeInstr +
+      recipe.instructions[str].toString().replace("Advertisement", "") +
+      " ";
+  }
   return (
     <div className="body">
       <div className="center">
@@ -13,12 +20,7 @@ const RecipeInfo = ({ recipe }) => {
         ))}
       </ul>
       <h2>Instructions</h2>
-      <p>
-        {recipe.instructions
-          .toString()
-          .replace("Advertisement,", "")
-          .replace("Advertisement", "")}
-      </p>
+      <p>{recipeInstr}</p>
       <h2>Nutrition</h2>
       <ul>
         <li>Calories: {recipe.calories !== "" ? recipe.calories : "N/A"}</li>
