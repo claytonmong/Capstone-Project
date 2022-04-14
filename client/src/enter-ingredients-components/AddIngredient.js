@@ -3,6 +3,8 @@ import { useState } from "react";
 const AddIngredient = ({ onAdd }) => {
   const [text, setText] = useState("");
 
+  const categoryList = ["Meat", "Dairy"];
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -31,8 +33,18 @@ const AddIngredient = ({ onAdd }) => {
           onChange={(e) => setText(e.target.value)}
         ></input>
       </div>
-
       <input type="submit" value="Save Ingredient" className="btn btn-block" />
+      <div>
+        Note: You Can Also Enter Any of The Following General Categories of
+        Ingredients:{" "}
+      </div>
+      <ul className="unordered-list">
+        {categoryList.map((item, index) => (
+          <li key={index}>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
     </form>
   );
 };

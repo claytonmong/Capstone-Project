@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom";
 
 const Home = (props) => {
   const location = useLocation();
+
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
 
@@ -45,6 +46,7 @@ const Home = (props) => {
     }
   };
   getResBack();
+
   // Clear ingredients
   const onClearIngredients = () => {
     if (location.state && location.state.ingredListItem) {
@@ -148,12 +150,13 @@ const Home = (props) => {
     onClearRecipes();
     let r = [];
     let arr = "";
+
     for (let ingredient in ingredientsSingular) {
-      arr += ingredientsSingular[ingredient].ingred1 + ",";
+      arr += ingredientsSingular[ingredient].ingred1.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
     for (let ingredient in ingredientsPlural) {
-      arr += ingredientsPlural[ingredient].ingred2 + ",";
+      arr += ingredientsPlural[ingredient].ingred2.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
 
@@ -165,11 +168,11 @@ const Home = (props) => {
     // add not_included ingredients
     arr += ";";
     for (let ingredient in notingredientsSingular) {
-      arr += notingredientsSingular[ingredient].ingred1 + ",";
+      arr += notingredientsSingular[ingredient].ingred1.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
     for (let ingredient in notingredientsPlural) {
-      arr += notingredientsPlural[ingredient].ingred2 + ",";
+      arr += notingredientsPlural[ingredient].ingred2.toLowerCase() + ",";
       //console.log(ingredients[ingredient].text);
     }
 
