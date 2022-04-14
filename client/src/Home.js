@@ -11,8 +11,11 @@ import { useLocation } from "react-router-dom";
 
 const Home = (props) => {
   const location = useLocation();
+
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
+
+  // let [includeCategories, setIncludeCategories] = useState([]);
 
   let [ingredients, setIngredients] = useState([]);
   let [ingredientsSingular, setIngredientsSingular] = useState([]);
@@ -45,6 +48,24 @@ const Home = (props) => {
     }
   };
   getResBack();
+
+  // const clearIncludeCategories = () => {
+  //   setIncludeCategories([]);
+  // };
+
+  // // Save Include Categories
+  // const saveIncludeCategory = (category) => {
+  //   // if (location.state && location.state.includeCategoriesItem) {
+  //   //   location.state.includeCategoriesItem = null;
+  //   // }
+  //   const id = Math.floor(Math.random() * 10000) + 1;
+  //   const cat = category.text;
+  //   console.log("text:" + cat);
+  //   const newCat = { id, cat };
+  //   setIncludeCategories([...includeCategories, newCat]);
+  //   // setIncludeCategories(...includeCategories, category);
+  // };
+
   // Clear ingredients
   const onClearIngredients = () => {
     if (location.state && location.state.ingredListItem) {
@@ -148,6 +169,7 @@ const Home = (props) => {
     onClearRecipes();
     let r = [];
     let arr = "";
+
     for (let ingredient in ingredientsSingular) {
       arr += ingredientsSingular[ingredient].ingred1 + ",";
       //console.log(ingredients[ingredient].text);
@@ -156,6 +178,11 @@ const Home = (props) => {
       arr += ingredientsPlural[ingredient].ingred2 + ",";
       //console.log(ingredients[ingredient].text);
     }
+
+    // for (let category in includeCategories) {
+    //   console.log("1:" + includeCategories[category].cat);
+    //   arr += includeCategories[category].cat + ",";
+    // }
 
     // slice the last if it is ,
     if (arr.charAt(arr.length - 1) === ",") {
@@ -215,7 +242,13 @@ const Home = (props) => {
             onAdd={() => setShowAddIngredient(!showAddIngredient)}
             showAdd={showAddIngredient}
           />
-          {showAddIngredient && <AddIngredient onAdd={addIngredient} />}
+          {showAddIngredient && (
+            <AddIngredient
+              onAdd={addIngredient}
+              // saveIncludeCategory={saveIncludeCategory}
+              // clearIncludeCategories={clearIncludeCategories}
+            />
+          )}
 
           {ingredients.length > 0 ? (
             <Ingredients
