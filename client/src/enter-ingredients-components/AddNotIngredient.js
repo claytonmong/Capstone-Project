@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const AddNotIngredient = ({ onAdd }) => {
   const [text, setText] = useState("");
-  const categoryList = ["Meat", "Dairy"];
+  const categoryList = ["Meat", "Dairy", "Vegetables", "Carbs"];
 
   const onSubmit = (e) => {
     e.preventDefault();
