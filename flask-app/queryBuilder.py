@@ -53,43 +53,43 @@ def QueryBuilder(include_ingredients, not_include_ingredients):
                         
                 }
         if "meat" in (s.lower() for s in include_ingredients_list):
-                include_ingredients_list.remove("meat")
-                include_ingredients_list.remove("meats")
+                # include_ingredients_list.remove("meat")
+                # include_ingredients_list.remove("meats")
                 include_ingredients_list.extend(meats)
                 include_ingredients_list.extend(meats_plural)
         if "meat" in (s.lower() for s in not_include_ingredients_list):
-                not_include_ingredients_list.remove("meat")
-                not_include_ingredients_list.remove("meats")
+                # not_include_ingredients_list.remove("meat")
+                # not_include_ingredients_list.remove("meats")
                 not_include_ingredients_list.extend(meats)
                 not_include_ingredients_list.extend(meats_plural)
         if "dairy" in (s.lower() for s in include_ingredients_list):
-                include_ingredients_list.remove("dairy")
-                include_ingredients_list.remove("dairies")
+                # include_ingredients_list.remove("dairy")
+                # include_ingredients_list.remove("dairies")
                 include_ingredients_list.extend(dairy)
                 include_ingredients_list.extend(dairy_plural)
         if "dairy" in (s.lower() for s in not_include_ingredients_list):
-                not_include_ingredients_list.remove("dairy")
-                not_include_ingredients_list.remove("dairies")
+                # not_include_ingredients_list.remove("dairy")
+                # not_include_ingredients_list.remove("dairies")
                 not_include_ingredients_list.extend(dairy)
                 not_include_ingredients_list.extend(dairy_plural)
         if "vegetable" in (s.lower() for s in include_ingredients_list):
-                include_ingredients_list.remove("vegetable")
-                include_ingredients_list.remove("vegetables")
+                # include_ingredients_list.remove("vegetable")
+                # include_ingredients_list.remove("vegetables")
                 include_ingredients_list.extend(vegetables)
                 include_ingredients_list.extend(vegetables_plural)
         if "vegetable" in (s.lower() for s in not_include_ingredients_list):
-                not_include_ingredients_list.remove("vegetable")
-                not_include_ingredients_list.remove("vegetables")
+                # not_include_ingredients_list.remove("vegetable")
+                # not_include_ingredients_list.remove("vegetables")
                 not_include_ingredients_list.extend(vegetables)
                 not_include_ingredients_list.extend(vegetables_plural)
         if "carb" in (s.lower() for s in include_ingredients_list):
-                include_ingredients_list.remove("carb")
-                include_ingredients_list.remove("carbs")
+                # include_ingredients_list.remove("carb")
+                # include_ingredients_list.remove("carbs")
                 include_ingredients_list.extend(carbs)
                 include_ingredients_list.extend(carbs_plural)
         if "carb" in (s.lower() for s in not_include_ingredients_list):
-                not_include_ingredients_list.remove("carb")
-                not_include_ingredients_list.remove("carbs")
+                # not_include_ingredients_list.remove("carb")
+                # not_include_ingredients_list.remove("carbs")
                 not_include_ingredients_list.extend(carbs)
                 not_include_ingredients_list.extend(carbs_plural)
         # insert ingredients into query
