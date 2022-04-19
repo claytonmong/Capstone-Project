@@ -8,11 +8,19 @@ import AddNotIngredient from "./enter-ingredients-components/AddNotIngredient";
 import SampleRecipeData from "./sample-data/SampleRecipeData";
 import RecipeList from "./recipe-components/RecipeList";
 import { useLocation } from "react-router-dom";
+import RecipeHeader from "./add-recipes-components/RecipeHeader";
+import AddMyRecipe from "./add-recipes-components/AddMyRecipe";
+import MyRecipes from "./add-recipes-components/MyRecipes";
 
 const Home = (props) => {
   const location = useLocation();
   const [showAddIngredient, setShowAddIngredient] = useState(false);
   const [showNotAddIngredient, setShowNotAddIngredient] = useState(false);
+
+  const [showAddMyRecipe, setShowAddMyRecipe] = useState(false);
+  const [myRecipes, setMyRecipes] = useState([]);
+  const [showManageMyRecipe, setShowManageMyRecipe] = useState(false);
+
 
   let [ingredients, setIngredients] = useState([]);
   let [ingredientsSingular, setIngredientsSingular] = useState([]);
@@ -21,6 +29,7 @@ const Home = (props) => {
   let [notingredients, setNotIngredients] = useState([]);
   let [notingredientsSingular, setNotIngredientsSingular] = useState([]);
   let [notingredientsPlural, setNotIngredientsPlural] = useState([]);
+
 
   let [results, setResults] = useState([]);
   let r = [];
@@ -126,6 +135,18 @@ const Home = (props) => {
     setNotIngredientsPlural([...notingredientsPlural, newIngredient2]);
   };
 
+  // Add My Recipe
+  const addMyRecipe = (myRecipe) => {
+    const id = Math.floor(Math.random() * 10000) + 1
+    const newMyRecipe = { id, ...myRecipe }
+    console.log(newMyRecipe);
+    setMyRecipes([...myRecipes, newMyRecipe])
+  };
+
+  // Delete My Recipe
+  const deleteMyRecipe = (id) =>{
+    setMyRecipes(myRecipes.filter((myRecipe) => myRecipe.id !==id))
+  }
   //
   // Delete Ingredient
   const deleteNotIngredient = (id) => {
@@ -178,7 +199,10 @@ const Home = (props) => {
     }
     //navigate(`/search?q=${arr}`);
     //console.log(typeof arr)
+   
 
+    
+    console.log(savedRecipes);
     console.log(arr);
     fetch("/search", {
       method: "POST",
@@ -207,6 +231,7 @@ const Home = (props) => {
     // console.log(typeof JSON.parse(results[0]))
   };
   return (
+    
     <div>
       <div className="parent">
         <div className="container">
@@ -263,11 +288,31 @@ const Home = (props) => {
             />
           )}
         </div>
+        
+        <div className="container">
+          <RecipeHeader
+            title={"My recipe"}
+            onAdd={() => setShowAddMyRecipe(!showAddMyRecipe)}
+            showAdd={showAddMyRecipe}
+            onManage= {() => setShowManageMyRecipe(!showManageMyRecipe)}
+            showManage = {showManageMyRecipe}
+          />
+          {showAddMyRecipe && (
+            <AddMyRecipe onAdd={addMyRecipe} />
+          )}
+        </div> 
       </div>
+      
+      {showManageMyRecipe && (
+            <div>
+            <MyRecipes recipes = {myRecipes} onDelete = {deleteMyRecipe} />
+          </div>
+          )}
+
       <div className="center">
         {ingredients.length > 0 &&
           !showAddIngredient &&
-          !showNotAddIngredient && (
+          !showNotAddIngredient && !showManageMyRecipe &&(
             <input
               type="submit"
               value="Submit Ingredients"
@@ -277,7 +322,7 @@ const Home = (props) => {
           )}
       </div>
 
-      {results.length > 0 && (
+      {results.length > 0 && !showManageMyRecipe && (
         <div>
           {typeof results === "undefined" ? (
             <p></p>
@@ -301,7 +346,7 @@ const Home = (props) => {
         </div>
       )}
       <div className="center">
-        {results.length > 0 && (
+        {results.length > 0 && !showManageMyRecipe &&(
           <input
             type="reset"
             value="Clear Recipes"
