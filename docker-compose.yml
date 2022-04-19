@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  elasticsearch:
+      container_name: elasticsearch
+      build: elasticsearch/
+      volumes:
+        - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9200:9200"
+        - "9300:9300"
+      environment:
+        - "cluster.name=elasticsearch"
+        - bootstrap.memory_lock=true
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        - "XPACK_SECURITY_ENABLED=false"
+      ulimits:
+        memlock:
+          soft: -1
+          hard: -1
+      networks:
+        - elk
+      healthcheck:
+        test: "curl http://elasticsearch:9200"
+        interval: "1s"
+        timeout: "3s"
+        retries: 60
+
+  web:
+    container_name: web
+    build: ./web
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      host: "elasticsearch"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+
+  client:
+    container_name: client
+    build: ./client
+    restart: always
+    ports:
+      - "8000:80"
+    environment:
+      host: "elasticsearch"
+    networks:
+      - elk
+    depends_on:
+      - elasticsearch
+      - web
+
+networks:
+  elk:
+    driver: bridge
