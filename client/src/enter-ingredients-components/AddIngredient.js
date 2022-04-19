@@ -26,7 +26,10 @@ const AddIngredient = ({ onAdd }) => {
           placeholder="Add Ingredient"
           /* Ingredient must begin with a letter and only contains the symbols [a-zA-Z-'& ] */
           value={
-            (text === "-") | ((text === "'") | (text === "&") | (text === " "))
+            (text.charAt(0) === "-") |
+            ((text.charAt(0) === "'") |
+              (text.charAt(0) === "&") |
+              (text.charAt(0) === " "))
               ? ""
               : text.replace(/[^a-zA-Z-'& ]/g, "")
           }
