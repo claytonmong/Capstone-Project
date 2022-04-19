@@ -179,6 +179,24 @@ const Home = (props) => {
     //navigate(`/search?q=${arr}`);
     //console.log(typeof arr)
 
+
+    // @Ben - Trying to get the API to work
+    fetch("/search", {
+      method: "POST",
+      body: JSON.stringify({
+        content: arr,
+      }),
+    })
+    .then(response => {
+      console.log('array', arr);
+      console.log('response: ', response);
+      console.log('response.json(): ', response.json());
+    })
+    // End of @Ben
+
+
+
+
     console.log(arr);
     fetch("/search", {
       method: "POST",

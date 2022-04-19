@@ -1,8 +1,9 @@
-INDEX = "capstone"
+# INDEX = "capstone"
+INDEX = "index"
 
-USERNAME = "elastic"
+# USERNAME = "elastic"
 
-PASSWORD = "changeme"
+# PASSWORD = "changeme"
 
 URLS = [
 "https://www.allrecipes.com/recipe/8331294/chicago-deep-dish-pizza-muffins/",
