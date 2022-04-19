@@ -7,7 +7,7 @@ node_modules
 __pycache__
 
 
-client/build
+# client/build
 client/public
 client/reportWebVitals.js
 client/setupTests.js
