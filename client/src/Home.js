@@ -82,17 +82,38 @@ const Home = (props) => {
     if (location.state && location.state.ingredListItem) {
       location.state.ingredListItem = null;
     }
-    const id = Math.floor(Math.random() * 10000) + 1;
-    const newIngredient = { id, ...ingredient };
-    setIngredients([...ingredients, newIngredient]);
+    /* Ingredient must begin with a letter and only contains the symbols [a-zA-Z-'& ] */
+    /* This check is added to prevent copy and pasting unwanted symbols */
+    ingredient.text = ingredient.text.replace(/[^a-zA-Z-'& ]/g, "").trim();
+    if (ingredient.text.length !== 0) {
+      let first = ingredient.text.charAt(0);
+      while (
+        ingredient.text.length > 1 &&
+        (first === "-") | (first === "'") | (first === "&")
+      ) {
+        ingredient.text = ingredient.text.substring(1);
+        first = ingredient.text.charAt(0);
+      }
+      if (
+        ingredient.text !== "-" &&
+        ingredient.text !== "'" &&
+        ingredient.text !== "&" &&
+        ingredient.text !== ""
+      ) {
+        console.log(ingredient.text);
+        const id = Math.floor(Math.random() * 10000) + 1;
+        const newIngredient = { id, ...ingredient };
+        setIngredients([...ingredients, newIngredient]);
 
-    const ingred1 = Pluralize(ingredient.text, 1);
-    const newIngredient1 = { id, ingred1 };
-    setIngredientsSingular([...ingredientsSingular, newIngredient1]);
+        const ingred1 = Pluralize(ingredient.text, 1);
+        const newIngredient1 = { id, ingred1 };
+        setIngredientsSingular([...ingredientsSingular, newIngredient1]);
 
-    const ingred2 = Pluralize(ingredient.text, 2);
-    const newIngredient2 = { id, ingred2 };
-    setIngredientsPlural([...ingredientsPlural, newIngredient2]);
+        const ingred2 = Pluralize(ingredient.text, 2);
+        const newIngredient2 = { id, ingred2 };
+        setIngredientsPlural([...ingredientsPlural, newIngredient2]);
+      }
+    }
   };
 
   //
@@ -115,17 +136,39 @@ const Home = (props) => {
     if (location.state && location.state.notingredListItem) {
       location.state.notingredListItem = null;
     }
-    const id = Math.floor(Math.random() * 10000) + 1;
-    const newIngredient = { id, ...ingredient };
-    setNotIngredients([...notingredients, newIngredient]);
 
-    const ingred1 = Pluralize(ingredient.text, 1);
-    const newIngredient1 = { id, ingred1 };
-    setNotIngredientsSingular([...notingredientsSingular, newIngredient1]);
+    /* Ingredient must begin with a letter and only contains the symbols [a-zA-Z-'& ] */
+    /* This check is added to prevent copy and pasting unwanted symbols */
+    ingredient.text = ingredient.text.replace(/[^a-zA-Z-'& ]/g, "").trim();
+    if (ingredient.text.length !== 0) {
+      let first = ingredient.text.charAt(0);
+      while (
+        ingredient.text.length > 1 &&
+        (first === "-") | (first === "'") | (first === "&")
+      ) {
+        ingredient.text = ingredient.text.substring(1);
+        first = ingredient.text.charAt(0);
+      }
+      if (
+        ingredient.text !== "-" &&
+        ingredient.text !== "'" &&
+        ingredient.text !== "&" &&
+        ingredient.text !== ""
+      ) {
+        console.log(ingredient.text);
+        const id = Math.floor(Math.random() * 10000) + 1;
+        const newIngredient = { id, ...ingredient };
+        setNotIngredients([...notingredients, newIngredient]);
 
-    const ingred2 = Pluralize(ingredient.text, 2);
-    const newIngredient2 = { id, ingred2 };
-    setNotIngredientsPlural([...notingredientsPlural, newIngredient2]);
+        const ingred1 = Pluralize(ingredient.text, 1);
+        const newIngredient1 = { id, ingred1 };
+        setNotIngredientsSingular([...notingredientsSingular, newIngredient1]);
+
+        const ingred2 = Pluralize(ingredient.text, 2);
+        const newIngredient2 = { id, ingred2 };
+        setNotIngredientsPlural([...notingredientsPlural, newIngredient2]);
+      }
+    }
   };
 
   //
